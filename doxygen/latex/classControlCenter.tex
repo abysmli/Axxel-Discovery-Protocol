@@ -1,0 +1,561 @@
+\hypertarget{classControlCenter}{\section{Control\-Center Class Reference}
+\label{classControlCenter}\index{Control\-Center@{Control\-Center}}
+}
+
+
+controls this adp system  
+
+
+
+
+{\ttfamily \#include $<$axxel\-\_\-discovery\-\_\-protokoll.\-h$>$}
+
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{classControlCenter_a3e88d2878430fc0375e9eb85f102da4e}{Control\-Center} (bool)
+\begin{DoxyCompactList}\small\item\em Constructor. \end{DoxyCompactList}\item 
+void \hyperlink{classControlCenter_a704ca612d363de83423ad11379520bec}{begin\-Control} ()
+\begin{DoxyCompactList}\small\item\em start the Program \end{DoxyCompactList}\item 
+\hypertarget{classControlCenter_a6c95b81bd573104c303821bb18777e62}{void \hyperlink{classControlCenter_a6c95b81bd573104c303821bb18777e62}{show\-Help} (void)}\label{classControlCenter_a6c95b81bd573104c303821bb18777e62}
+
+\begin{DoxyCompactList}\small\item\em show help informations \end{DoxyCompactList}\item 
+void \hyperlink{classControlCenter_a79c71093e6aac6436f3cdd16e0de4f11}{check\-Parameter} (int A\-R\-G\-C, char $\ast$$\ast$A\-R\-G\-V)
+\begin{DoxyCompactList}\small\item\em check out which parameter has been inputed \end{DoxyCompactList}\item 
+void \hyperlink{classControlCenter_a35b34a9192e2d04936d6743107dd1280}{menu} (void)
+\begin{DoxyCompactList}\small\item\em change /etc/syscrl.conf, in order to avoid the T\-I\-M\-E\-\_\-\-W\-A\-I\-T state by ports \end{DoxyCompactList}\item 
+\hypertarget{classControlCenter_a605a76009c7f66ea377f45b7ef0a1d18}{void \hyperlink{classControlCenter_a605a76009c7f66ea377f45b7ef0a1d18}{configure\-Program} (void)}\label{classControlCenter_a605a76009c7f66ea377f45b7ef0a1d18}
+
+\begin{DoxyCompactList}\small\item\em configure the Program from the setting file \char`\"{}adp.\-ini\char`\"{} \end{DoxyCompactList}\item 
+\hypertarget{classControlCenter_a02dc6302f909e477aabc100af4a6cbe6}{void \hyperlink{classControlCenter_a02dc6302f909e477aabc100af4a6cbe6}{create\-Setting\-File} (void)}\label{classControlCenter_a02dc6302f909e477aabc100af4a6cbe6}
+
+\begin{DoxyCompactList}\small\item\em create the setting file \char`\"{}adp.\-ini\char`\"{} \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+controls this adp system 
+
+kernel of exchange process 
+
+Definition at line 198 of file axxel\-\_\-discovery\-\_\-protokoll.\-h.
+
+
+
+\subsection{Constructor \& Destructor Documentation}
+\hypertarget{classControlCenter_a3e88d2878430fc0375e9eb85f102da4e}{\index{Control\-Center@{Control\-Center}!Control\-Center@{Control\-Center}}
+\index{Control\-Center@{Control\-Center}!ControlCenter@{Control\-Center}}
+\subsubsection[{Control\-Center}]{\setlength{\rightskip}{0pt plus 5cm}Control\-Center\-::\-Control\-Center (
+\begin{DoxyParamCaption}
+\item[{bool}]{b\-Switch}
+\end{DoxyParamCaption}
+)}}\label{classControlCenter_a3e88d2878430fc0375e9eb85f102da4e}
+
+
+Constructor. 
+
+\hyperlink{ControlCenter_8cpp_source}{Control\-Center.\-cpp} Project\-: Axxel Discovery Protocol Created on\-: 2012-\/8-\/4 Author\-: Li, Yuan
+
+controls this adp system kernel of exchange process 
+\begin{DoxyParams}{Parameters}
+{\em b\-Switch} & \mbox{[}b\-Switch = true means, the program will running as daemon\mbox{]} \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 17 of file Control\-Center.\-cpp.
+
+
+\begin{DoxyCode}
+18 \{
+19     bDaemonSwitch = bSwitch;
+20 \}
+\end{DoxyCode}
+
+
+\subsection{Member Function Documentation}
+\hypertarget{classControlCenter_a704ca612d363de83423ad11379520bec}{\index{Control\-Center@{Control\-Center}!begin\-Control@{begin\-Control}}
+\index{begin\-Control@{begin\-Control}!ControlCenter@{Control\-Center}}
+\subsubsection[{begin\-Control}]{\setlength{\rightskip}{0pt plus 5cm}void Control\-Center\-::begin\-Control (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{classControlCenter_a704ca612d363de83423ad11379520bec}
+
+
+start the Program 
+
+start the \hyperlink{classServer}{Server} side and \hyperlink{classClient}{Client} side 
+
+Definition at line 26 of file Control\-Center.\-cpp.
+
+
+\begin{DoxyCode}
+27 \{
+28     \textcolor{comment}{// create adp.ini file}
+29     \hyperlink{classControlCenter_a02dc6302f909e477aabc100af4a6cbe6}{createSettingFile}();
+30 
+31     \textcolor{comment}{// get and refresh LocalNetworkInformation}
+32     std::thread thRefreshLocalNetworkInformation([]()
+33     \{
+34         \hyperlink{classLocalNetworkInformation}{LocalNetworkInformation} getInformation;
+35         \textcolor{keywordflow}{while}(1)
+36         \{
+37             getInformation.\hyperlink{classLocalNetworkInformation_a891ef0a500a2b652e842fa067c751782}{getLocalNetworkInformation\_v4}();
+38             std::this\_thread::sleep\_for(std::chrono::seconds(300));
+39         \}
+40 
+41     \});
+42     thRefreshLocalNetworkInformation.detach();
+43 
+44     \textcolor{comment}{// start server side in another thread}
+45     \textcolor{comment}{// here use the lambda expression (c++11) is easier, if not, we need a function}
+46     \textcolor{keywordflow}{if} (!bWITHIPV6ONLY)
+47     \{
+48         std::thread thServerThread([]()
+49         \{
+50             \hyperlink{classServer}{Server} serverThread;
+51             serverThread.\hyperlink{classServer_a00509bf6473b95160150d4e28b072968}{startServer}();
+52         \});
+53         \textcolor{comment}{// let server side thread works alone}
+54         thServerThread.detach();
+55     \}
+56     \textcolor{keywordflow}{else}
+57     \{
+58 
+59     \}
+60     \textcolor{comment}{// when bWITHIPV6 = true start one more thread for ipv6 server side}
+61     \textcolor{keywordflow}{if} (bWITHIPV6||bWITHIPV6ONLY)
+62     \{
+63         std::thread thServerThread\_WITHIPv6([]()
+64         \{
+65             \hyperlink{classServer}{Server} serverThread;
+66             serverThread.\hyperlink{classServer_a660e72a3e489abde31f99691be7156f2}{startServer\_WITHIPV6}();
+67         \});
+68         \textcolor{comment}{// let ipv6 server side thread works alone}
+69         thServerThread\_WITHIPv6.detach();
+70     \}
+71     \textcolor{keywordflow}{else}
+72     \{
+73 
+74     \}
+75     \textcolor{comment}{// only for tests}
+76     \textcolor{comment}{// sleep one second}
+77     \textcolor{comment}{// wait for starting of server side}
+78     \textcolor{comment}{// one second is enough for starting of server side}
+79     std::this\_thread::sleep\_for(std::chrono::seconds(1));
+80 
+81     \textcolor{comment}{// start client side in another thread}
+82     std::thread thClientThread([]()
+83     \{
+84         \hyperlink{classClient}{Client} clientThread;
+85         clientThread.\hyperlink{classClient_a1f385d68275ac367f9d2a868904fd7f6}{listTransfer}();
+86     \});
+87 
+88     \textcolor{comment}{// let client side thread works alone}
+89     thClientThread.detach();
+90 
+91     \textcolor{comment}{// running as daemon}
+92     \textcolor{comment}{// the Program should always running in background}
+93     std::ofstream outfile(\textcolor{stringliteral}{"Log"}, std::ios::app);
+94     outfile << \textcolor{stringliteral}{"start Axxel Discovery Protocol at "} << getTime() << std::endl;
+95     outfile.close();
+96     \textcolor{keywordflow}{if} (bDaemonSwitch)
+97     \{
+98         \textcolor{keywordflow}{while} (1)
+99         \{
+100             \textcolor{comment}{// check the apd.ini and change the environment variable every 10 seconds}
+101             \hyperlink{classControlCenter_a605a76009c7f66ea377f45b7ef0a1d18}{configureProgram}();
+102             std::this\_thread::sleep\_for(std::chrono::seconds(10));
+103         \}
+104     \}
+105 
+106 \}
+\end{DoxyCode}
+\hypertarget{classControlCenter_a79c71093e6aac6436f3cdd16e0de4f11}{\index{Control\-Center@{Control\-Center}!check\-Parameter@{check\-Parameter}}
+\index{check\-Parameter@{check\-Parameter}!ControlCenter@{Control\-Center}}
+\subsubsection[{check\-Parameter}]{\setlength{\rightskip}{0pt plus 5cm}void Control\-Center\-::check\-Parameter (
+\begin{DoxyParamCaption}
+\item[{int}]{argc, }
+\item[{char $\ast$$\ast$}]{argv}
+\end{DoxyParamCaption}
+)}}\label{classControlCenter_a79c71093e6aac6436f3cdd16e0de4f11}
+
+
+check out which parameter has been inputed 
+
+
+\begin{DoxyParams}{Parameters}
+{\em argc} & \mbox{[}number of parameters\mbox{]} \\
+\hline
+{\em argv} & \mbox{[}parameters\mbox{]} \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 113 of file Control\-Center.\-cpp.
+
+
+\begin{DoxyCode}
+114 \{
+115     \textcolor{comment}{// when "-m" has been inputed}
+116     \textcolor{keywordflow}{if} (!strcmp(argv[1], \textcolor{stringliteral}{"-m"}))
+117     \{
+118         \textcolor{comment}{// start the program}
+119         \textcolor{comment}{// show the menu}
+120         \hyperlink{classControlCenter_a35b34a9192e2d04936d6743107dd1280}{menu}();
+121     \}
+122     \textcolor{comment}{// when "-h" has been inputed}
+123     \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} ((!strcmp(argv[1], \textcolor{stringliteral}{"-h"})) || (!strcmp(argv[1], \textcolor{stringliteral}{"-?"})))
+124     \{
+125         \textcolor{comment}{// showHelp...}
+126         \hyperlink{classControlCenter_a6c95b81bd573104c303821bb18777e62}{showHelp}();
+127     \}
+128     \textcolor{comment}{// when "-rl" has been inputed}
+129     \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (!strcmp(argv[1], \textcolor{stringliteral}{"-rl"}))
+130     \{
+131         \textcolor{comment}{// reset LocalNetworkInformation.dat}
+132         \textcolor{comment}{// LocalNetworkInformation.dat saves records, for example: Host Names, Host Ports, Network Address,
+       Masks, Interfaces}
+133         \textcolor{comment}{// all these things are about local network}
+134         std::ofstream outfile(\textcolor{stringliteral}{"LocalNetworkInformation.dat"}, std::ios::out);
+135         outfile.setf(std::ios::left);
+136         outfile << \textcolor{stringliteral}{"#LocalNetworkInformation"} << std::endl << std::setw(30)
+137                 << \textcolor{stringliteral}{"#HostName"} << std::setw(30) << \textcolor{stringliteral}{"Host IP Address"}
+138                 << std::setw(15) << \textcolor{stringliteral}{"HostPort"} << std::setw(25)
+139                 << \textcolor{stringliteral}{"NetworkAddress"} << std::setw(25) << \textcolor{stringliteral}{"Mask"} << std::setw(15)
+140                 << \textcolor{stringliteral}{"Interface"} << std::endl;
+141         outfile.close();
+142         std::cout << \textcolor{stringliteral}{"LocalNetworkInformation.dat reseted"} << std::endl;
+143     \}
+144     \textcolor{comment}{// when "-rm" has been inputed}
+145     \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (!strcmp(argv[1], \textcolor{stringliteral}{"-rm"}))
+146     \{
+147         \textcolor{comment}{// reset List.dat}
+148         \textcolor{comment}{// List.dat saves records, for example: Remote AxxelBox IPs, Remote AxxelBox Ports, Destination
+       IPs, Destination Network Address,Time}
+149         std::ofstream outfile(\textcolor{stringliteral}{"List.dat"}, std::ios::out);
+150         outfile.setf(std::ios::left);
+151         outfile << \textcolor{stringliteral}{"#SystemInformation"} << std::endl << std::setw(30)
+152                 << \textcolor{stringliteral}{"#Remote AxxelBox IP"} << std::setw(25)
+153                 << \textcolor{stringliteral}{"Remote AxxelBox Port"} << std::setw(30)
+154                 << \textcolor{stringliteral}{"Remote AxxelBox Local IP"} << std::setw(30)
+155                 << \textcolor{stringliteral}{"Remote AxxelBox Local Port"} << std::setw(30)
+156                 << \textcolor{stringliteral}{"Destination IP"} << std::setw(30)
+157                 << \textcolor{stringliteral}{"Destination Network Address"} << std::setw(20) << \textcolor{stringliteral}{"Time"}
+158                 << std::endl;
+159         outfile.close();
+160         std::cout << \textcolor{stringliteral}{"List.dat reseted"} << std::endl;
+161     \}
+162     \textcolor{comment}{// when "-rs" has been inputed}
+163     \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (!strcmp(argv[1], \textcolor{stringliteral}{"-rs"}))
+164     \{
+165         \textcolor{comment}{// reset Recvlog.dat}
+166         \textcolor{comment}{// Recvlog.dat saves logs of server side}
+167         std::ofstream outfile(\textcolor{stringliteral}{"Recvlog.dat"}, std::ios::out);
+168         outfile.close();
+169         std::cout << \textcolor{stringliteral}{"Recvlog.dat"} << std::endl;
+170     \}
+171     \textcolor{comment}{// when "-rc" has been inputed}
+172     \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (!strcmp(argv[1], \textcolor{stringliteral}{"-rc"}))
+173     \{
+174         \textcolor{comment}{// reset Sendlog.dat}
+175         \textcolor{comment}{// Sendlog.dat saves logs of client side}
+176         std::ofstream outfile(\textcolor{stringliteral}{"Sendlog.dat"}, std::ios::out);
+177         outfile.close();
+178         std::cout << \textcolor{stringliteral}{"Sendlog.dat reseted"} << std::endl;
+179     \}
+180     \textcolor{comment}{// when "-sl" has been inputed}
+181     \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (!strcmp(argv[1], \textcolor{stringliteral}{"-sl"}))
+182     \{
+183         \textcolor{comment}{// edit LocalNetworkInformation.dat by vi}
+184         system(\textcolor{stringliteral}{"vi LocalNetworkInformation.dat"});
+185     \}
+186     \textcolor{comment}{// when "-sm" has been inputed}
+187     \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (!strcmp(argv[1], \textcolor{stringliteral}{"-sm"}))
+188     \{
+189         \textcolor{comment}{// edit List.dat by vi}
+190         system(\textcolor{stringliteral}{"vi List.dat"});
+191     \}
+192     \textcolor{comment}{// when "-ss" has been inputed}
+193     \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (!strcmp(argv[1], \textcolor{stringliteral}{"-ss"}))
+194     \{
+195         \textcolor{comment}{// edit Recvlog.dat by vi}
+196         system(\textcolor{stringliteral}{"vi Recvlog.dat"});
+197     \}
+198     \textcolor{comment}{// when "-sc" has been inputed}
+199     \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (!strcmp(argv[1], \textcolor{stringliteral}{"-sc"}))
+200     \{
+201         \textcolor{comment}{// edit Sendlog.dat by vi}
+202         system(\textcolor{stringliteral}{"vi Sendlog.dat"});
+203     \}
+204     \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (!strcmp(argv[1], \textcolor{stringliteral}{"-ri"}))
+205     \{
+206         \textcolor{comment}{// reset adp.ini}
+207         \textcolor{comment}{// adp.ini saves all settings of adp}
+208         std::ofstream outfile(\textcolor{stringliteral}{"adp.ini"}, std::ios::out);
+209         \textcolor{comment}{// set default DelayTime = 15}
+210         outfile << \textcolor{stringliteral}{"DelayTime = 15"} << std::endl;
+211         \textcolor{comment}{// set default WITHIPV6 = False, that means show nothing in screen}
+212         outfile << \textcolor{stringliteral}{"WITHIPV6 = False"} << std::endl;
+213         \textcolor{comment}{// set default Interface = Default, that means use default interface}
+214         outfile << \textcolor{stringliteral}{"Interface = Default"} << std::endl;
+215         \textcolor{comment}{// set LostTime = 3, that means the records which more than 3 hours can not be connected, will be
+       deleted}
+216         outfile << \textcolor{stringliteral}{"LostTime = 3"} << std::endl;
+217         \textcolor{comment}{// set ServerSidePortIPv4 = 5000}
+218         outfile << \textcolor{stringliteral}{"ServerSidePortIPv4 = 5000"} << std::endl;
+219         \textcolor{comment}{// set ServerSidePortIPv6 = 8000}
+220         outfile << \textcolor{stringliteral}{"ServerSidePortIPv6 = 8000"} << std::endl;
+221         \textcolor{comment}{// set Extern IP = "" means}
+222         outfile << \textcolor{stringliteral}{"ExternIP = "} << std::endl;
+223         outfile.close();
+224     \}
+225     \textcolor{comment}{// when "-ra" has been inputed}
+226     \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (!strcmp(argv[1], \textcolor{stringliteral}{"-ra"}))
+227     \{
+228         \textcolor{comment}{// reset Recvlog.dat}
+229         \textcolor{comment}{// Recvlog.dat saves logs of server side}
+230         std::ofstream outfilers(\textcolor{stringliteral}{"Recvlog.dat"}, std::ios::out);
+231         outfilers.close();
+232 
+233         \textcolor{comment}{// reset List.dat}
+234         \textcolor{comment}{// List.dat saves records, for example: Remote AxxelBox IPs, Remote AxxelBox Ports, Destination
+       IPs, Destination Network Address, Time}
+235         std::ofstream outfilerm(\textcolor{stringliteral}{"List.dat"}, std::ios::out);
+236         outfilerm.setf(std::ios::left);
+237         outfilerm << \textcolor{stringliteral}{"#SystemInformation"} << std::endl << std::setw(30)
+238                 << \textcolor{stringliteral}{"#Remote AxxelBox IP"} << std::setw(25)
+239                 << \textcolor{stringliteral}{"Remote AxxelBox Port"} << std::setw(30)
+240                 << \textcolor{stringliteral}{"Remote AxxelBox Local IP"} << std::setw(30)
+241                 << \textcolor{stringliteral}{"Remote AxxelBox Local Port"} << std::setw(30)
+242                 << \textcolor{stringliteral}{"Destination IP"} << std::setw(30)
+243                 << \textcolor{stringliteral}{"Destination Network Address"} << std::setw(20) << \textcolor{stringliteral}{"Time"}
+244                 << std::endl;
+245         outfilerm.close();
+246 
+247         \textcolor{comment}{// reset LocalNetworkInformation.dat}
+248         \textcolor{comment}{// LocalNetworkInformation.dat saves records, for example: Host Names, Host Ports, Network Address,
+       Masks, Interfaces}
+249         \textcolor{comment}{// all these things are about local network}
+250         std::ofstream outfilerl(\textcolor{stringliteral}{"LocalNetworkInformation.dat"}, std::ios::out);
+251         outfilerl.setf(std::ios::left);
+252         outfilerl << \textcolor{stringliteral}{"#LocalNetworkInformation"} << std::endl << std::setw(30)
+253                 << \textcolor{stringliteral}{"#HostName"} << std::setw(30) << \textcolor{stringliteral}{"Host IP Address"}
+254                 << std::setw(15) << \textcolor{stringliteral}{"HostPort"} << std::setw(25)
+255                 << \textcolor{stringliteral}{"NetworkAddress"} << std::setw(25) << \textcolor{stringliteral}{"Mask"} << std::setw(15)
+256                 << \textcolor{stringliteral}{"Interface"} << std::endl;
+257         outfilerl.close();
+258 
+259         \textcolor{comment}{// reset Sendlog.dat}
+260         \textcolor{comment}{// Sendlog.dat saves logs of client side}
+261         std::ofstream outfilerc(\textcolor{stringliteral}{"Sendlog.dat"}, std::ios::out);
+262         outfilerc.close();
+263 
+264         \textcolor{comment}{// reset adp.ini}
+265         \textcolor{comment}{// adp.ini saves all settings of adp}
+266         std::ofstream outfileri(\textcolor{stringliteral}{"adp.ini"}, std::ios::out);
+267         \textcolor{comment}{// set default DelayTime = 15}
+268         outfileri << \textcolor{stringliteral}{"DelayTime = 15"} << std::endl;
+269         \textcolor{comment}{// set default WITHIPV6 = False, that means show nothing in screen}
+270         outfileri << \textcolor{stringliteral}{"WITHIPV6 = False"} << std::endl;
+271         \textcolor{comment}{// set default Interface = Default, that means use default interface}
+272         outfileri << \textcolor{stringliteral}{"Interface = Default"} << std::endl;
+273         \textcolor{comment}{// set LostTime = 3, that means the records which more than 3 hours can not be connected, will be
+       deleted}
+274         outfileri << \textcolor{stringliteral}{"LostTime = 3"} << std::endl;
+275         \textcolor{comment}{// set ServerSidePortIPv4 = 5000}
+276         outfileri << \textcolor{stringliteral}{"ServerSidePortIPv4 = 5000"} << std::endl;
+277         \textcolor{comment}{// set ServerSidePortIPv6 = 8000}
+278         outfileri << \textcolor{stringliteral}{"ServerSidePortIPv6 = 8000"} << std::endl;
+279         \textcolor{comment}{// set Extern IP = "" means}
+280         outfileri << \textcolor{stringliteral}{"ExternIP = "} << std::endl;
+281         outfileri.close();
+282 
+283         std::cout << \textcolor{stringliteral}{"All files reseted"} << std::endl;
+284     \}
+285     \textcolor{comment}{// when something else has been inputed}
+286     \textcolor{keywordflow}{else}
+287     \{
+288         \textcolor{comment}{// show the message "Parameter Fault" and show the help}
+289         std::cerr << \textcolor{stringliteral}{"Parameter Fault"} << std::endl;
+290         \hyperlink{classControlCenter_a6c95b81bd573104c303821bb18777e62}{showHelp}();
+291     \}
+292 \}
+\end{DoxyCode}
+\hypertarget{classControlCenter_a35b34a9192e2d04936d6743107dd1280}{\index{Control\-Center@{Control\-Center}!menu@{menu}}
+\index{menu@{menu}!ControlCenter@{Control\-Center}}
+\subsubsection[{menu}]{\setlength{\rightskip}{0pt plus 5cm}void Control\-Center\-::menu (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}}\label{classControlCenter_a35b34a9192e2d04936d6743107dd1280}
+
+
+change /etc/syscrl.conf, in order to avoid the T\-I\-M\-E\-\_\-\-W\-A\-I\-T state by ports 
+
+these four scripts should be changed
+
+net.\-ipv4.\-tcp\-\_\-syncookies = 1
+
+net.\-ipv4.\-tcp\-\_\-tw\-\_\-reuse = 1
+
+net.\-ipv4.\-tcp\-\_\-tw\-\_\-recycle = 1
+
+net.\-ipv4.\-tcp\-\_\-fin\-\_\-timeout = 30
+
+other things can not be changed the menu of \hyperlink{classControlCenter}{Control\-Center} 
+
+Definition at line 457 of file Control\-Center.\-cpp.
+
+
+\begin{DoxyCode}
+458 \{
+459     \hyperlink{classControlCenter_a704ca612d363de83423ad11379520bec}{beginControl}();
+460 
+461     \textcolor{comment}{// show the menu}
+462     \textcolor{keywordflow}{while} (1)
+463     \{
+464         system(\textcolor{stringliteral}{"clear"});
+465         std::cout << \textcolor{stringliteral}{"Axxel Discovery Protocol Control Menu"} << std::endl;
+466         std::cout << \textcolor{stringliteral}{"option:"} << std::endl;
+467         std::cout << \textcolor{stringliteral}{"[d]: set delay time of Client"} << std::endl;
+468         std::cout << \textcolor{stringliteral}{"[i]: show running information"} << std::endl;
+469         std::cout << \textcolor{stringliteral}{"[l]: show LocalNetworkInformationList"} << std::endl;
+470         std::cout << \textcolor{stringliteral}{"[m]: show MainList"} << std::endl;
+471         std::cout << \textcolor{stringliteral}{"[s]: show Server side Log"} << std::endl;
+472         std::cout << \textcolor{stringliteral}{"[c]: show Client side Log"} << std::endl;
+473         std::cout << \textcolor{stringliteral}{"[r]: show running Variable"} << std::endl;
+474         std::cout << \textcolor{stringliteral}{"[e]: Exit"} << std::endl;
+475         std::cout << \textcolor{stringliteral}{"choose a option :  "};
+476 
+477         \textcolor{comment}{// chFlag store the key, which the user just inputed}
+478         \textcolor{keywordtype}{char} chFlag;
+479         std::cin >> chFlag;
+480 
+481         \textcolor{comment}{// setup the interval for sending packets}
+482         \textcolor{keywordflow}{if} (chFlag == \textcolor{charliteral}{'d'})
+483         \{
+484             std::cout << std::endl << \textcolor{stringliteral}{"The interval for sending Pakets"}
+485                     << std::endl;
+486             std::cout << \textcolor{stringliteral}{"Now sending interval: "} << iDelayTime << \textcolor{stringliteral}{"s"}
+487                     << std::endl;
+488             std::cout
+489                     << \textcolor{stringliteral}{"Client's Delay Time [second] ( '0' means no change ) = "};
+490             \textcolor{keywordtype}{int} iValue;
+491             \textcolor{comment}{// when the user inputs 0, means no change}
+492             std::cin >> iValue;
+493             \textcolor{keywordflow}{if} (iValue != 0)
+494             \{
+495                 iDelayTime = iValue;
+496             \}
+497             \textcolor{keywordflow}{else}
+498             \{
+499                 \textcolor{keywordflow}{continue};
+500             \}
+501         \}
+502         \textcolor{comment}{// show the running Informations}
+503         \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (chFlag == \textcolor{charliteral}{'i'})
+504         \{
+505             system(\textcolor{stringliteral}{"clear"});
+506             std::cout << \textcolor{stringliteral}{"running Informations: (return to Menu press 'q')"}
+507                     << std::endl;
+508             bShowInformation = \textcolor{keyword}{true};
+509 
+510             \textcolor{comment}{// endless loop }
+511             \textcolor{comment}{// when user input 'q', exit it and show the informations not any more}
+512             \textcolor{keywordflow}{while} (1)
+513             \{
+514                 \textcolor{keywordflow}{if} (getchar() == \textcolor{charliteral}{'q'})
+515                 \{
+516                     bShowInformation = \textcolor{keyword}{false};
+517                     \textcolor{keywordflow}{break};
+518                 \}
+519                 \textcolor{keywordflow}{else}
+520                 \{
+521                 \}
+522             \}
+523         \}
+524 
+525         \textcolor{comment}{// show LocalNetworkInformation.dat}
+526         \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (chFlag == \textcolor{charliteral}{'l'})
+527         \{
+528             system(\textcolor{stringliteral}{"reset"});
+529             system(\textcolor{stringliteral}{"cat LocalNetworkInformation.dat"});
+530             std::cout << std::endl << std::endl
+531                     << \textcolor{stringliteral}{"Press any key return to Menu..."} << std::endl;
+532             \textcolor{comment}{// press any key return to menu}
+533             getchar();
+534             getchar();
+535         \}
+536         \textcolor{comment}{// show List.dat}
+537         \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (chFlag == \textcolor{charliteral}{'m'})
+538         \{
+539             system(\textcolor{stringliteral}{"reset"});
+540             system(\textcolor{stringliteral}{"cat List.dat"});
+541             std::cout << std::endl << std::endl
+542                     << \textcolor{stringliteral}{"Press any key return to Menu..."} << std::endl;
+543             \textcolor{comment}{// press any key return to menu}
+544             getchar();
+545             getchar();
+546         \}
+547         \textcolor{comment}{// show Recvlog.dat}
+548         \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (chFlag == \textcolor{charliteral}{'s'})
+549         \{
+550             system(\textcolor{stringliteral}{"reset"});
+551             system(\textcolor{stringliteral}{"cat Recvlog.dat"});
+552             std::cout << std::endl << std::endl
+553                     << \textcolor{stringliteral}{"Press any key return to Menu..."} << std::endl;
+554             \textcolor{comment}{// press any key return to menu}
+555             getchar();
+556             getchar();
+557         \}
+558         \textcolor{comment}{// show Sendlog.dat}
+559         \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (chFlag == \textcolor{charliteral}{'c'})
+560         \{
+561             system(\textcolor{stringliteral}{"reset"});
+562             system(\textcolor{stringliteral}{"cat Sendlog.dat"});
+563             std::cout << std::endl << std::endl
+564                     << \textcolor{stringliteral}{"Press any key return to Menu..."} << std::endl;
+565             \textcolor{comment}{// press any key return to menu}
+566             getchar();
+567             getchar();
+568         \}
+569         \textcolor{comment}{// exit this Program}
+570         \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (chFlag == \textcolor{charliteral}{'e'})
+571         \{
+572             exit(1);
+573         \}
+574         \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (chFlag == \textcolor{charliteral}{'r'})
+575         \{
+576             system(\textcolor{stringliteral}{"reset"});
+577             std::cout << \textcolor{stringliteral}{"The running Variables:"} << std::endl;
+578             std::cout << \textcolor{stringliteral}{"Delay Time : "} << iDelayTime << std::endl;
+579             std::cout << \textcolor{stringliteral}{"WITHIPV6 : "} << bWITHIPV6 << std::endl;
+580             std::cout << \textcolor{stringliteral}{"Interface: "} << sINTERFACE << std::endl;
+581             std::cout << \textcolor{stringliteral}{"Lost Time : "} << iLostTime << std::endl;
+582             std::cout << \textcolor{stringliteral}{"Server Side Port IPv4 :"} << iServerSidePortIPv4
+583                     << std::endl;
+584             std::cout << \textcolor{stringliteral}{"Server Side Port IPv6 :"} << iServerSidePortIPv6
+585                     << std::endl;
+586             std::cout << \textcolor{stringliteral}{"Extern IP Address : "} << sExternIPAddress << \textcolor{stringliteral}{":"}
+587                     << sExternPort << std::endl;
+588             std::cout << std::endl << std::endl
+589                     << \textcolor{stringliteral}{"Press any key return to Menu..."} << std::endl;
+590             \textcolor{comment}{// press any key return to menu}
+591             getchar();
+592             getchar();
+593 
+594         \}
+595         \textcolor{keywordflow}{else}
+596         \{
+597             \textcolor{keywordflow}{continue};
+598         \}
+599     \}
+600 \}
+\end{DoxyCode}
+
+
+The documentation for this class was generated from the following files\-:\begin{DoxyCompactItemize}
+\item 
+/home/abysmli/workspace/\-A\-D\-P/app/src/axxel\-\_\-discovery\-\_\-protokoll.\-h\item 
+/home/abysmli/workspace/\-A\-D\-P/app/src/Control\-Center.\-cpp\end{DoxyCompactItemize}

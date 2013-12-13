@@ -1,0 +1,77 @@
+\hypertarget{classClient}{\section{Client Class Reference}
+\label{classClient}\index{Client@{Client}}
+}
+
+
+running as client thread  
+
+
+
+
+{\ttfamily \#include $<$axxel\-\_\-discovery\-\_\-protokoll.\-h$>$}
+
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{classClient_ae51af7aa6b8f591496a8f6a4a87a14bf}{Client} ()
+\begin{DoxyCompactList}\small\item\em Constructor. \end{DoxyCompactList}\item 
+\hypertarget{classClient_af97a445c9fbfff98a418f1870f103398}{void \hyperlink{classClient_af97a445c9fbfff98a418f1870f103398}{get\-Full\-Text} (void)  throw (\-Exception)}\label{classClient_af97a445c9fbfff98a418f1870f103398}
+
+\begin{DoxyCompactList}\small\item\em get datum from List.\-dat \end{DoxyCompactList}\item 
+\hypertarget{classClient_ac184e321f16e0f86c36cdc2a6e9f412b}{void \hyperlink{classClient_ac184e321f16e0f86c36cdc2a6e9f412b}{get\-List} (void)  throw (\-Exception)}\label{classClient_ac184e321f16e0f86c36cdc2a6e9f412b}
+
+\begin{DoxyCompactList}\small\item\em get remote Axxel\-Box I\-P Addresses from List.\-dat \end{DoxyCompactList}\item 
+\hypertarget{classClient_a1f385d68275ac367f9d2a868904fd7f6}{void \hyperlink{classClient_a1f385d68275ac367f9d2a868904fd7f6}{list\-Transfer} (void)}\label{classClient_a1f385d68275ac367f9d2a868904fd7f6}
+
+\begin{DoxyCompactList}\small\item\em send List.\-dat and Local\-Network\-Information.\-dat to remote Axxel\-Boxs \end{DoxyCompactList}\item 
+\hypertarget{classClient_a12ffafa5e304fd18d4e8d883a13216ed}{void \hyperlink{classClient_a12ffafa5e304fd18d4e8d883a13216ed}{get\-Local\-Network\-Information} (void)  throw (\-Exception)}\label{classClient_a12ffafa5e304fd18d4e8d883a13216ed}
+
+\begin{DoxyCompactList}\small\item\em get datum from Local\-Network\-Information.\-dat \end{DoxyCompactList}\item 
+\hypertarget{classClient_a840e519ca781888cbd54181572ebe3a7}{\hyperlink{classClient_a840e519ca781888cbd54181572ebe3a7}{$\sim$\-Client} ()}\label{classClient_a840e519ca781888cbd54181572ebe3a7}
+
+\begin{DoxyCompactList}\small\item\em Destructor. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+running as client thread 
+
+first collect the datum from List.\-dat and Local\-Network\-Information.\-dat extract I\-Ps of remote Axxel\-Boxs then send these datum to remote Axxel\-Boxs 
+
+Definition at line 169 of file axxel\-\_\-discovery\-\_\-protokoll.\-h.
+
+
+
+\subsection{Constructor \& Destructor Documentation}
+\hypertarget{classClient_ae51af7aa6b8f591496a8f6a4a87a14bf}{\index{Client@{Client}!Client@{Client}}
+\index{Client@{Client}!Client@{Client}}
+\subsubsection[{Client}]{\setlength{\rightskip}{0pt plus 5cm}Client\-::\-Client (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{classClient_ae51af7aa6b8f591496a8f6a4a87a14bf}
+
+
+Constructor. 
+
+\hyperlink{Client_8cpp_source}{Client.\-cpp} Project\-: Axxel Discovery Protocol Created on\-: 2012-\/8-\/4 Author\-: Li, Yuan
+
+running as client thread first collect the datum from List.\-dat and Local\-Network\-Information.\-dat extract I\-Ps of remote Axxel\-Boxs then send these datum to remote Axxel\-Boxs 
+
+Definition at line 19 of file Client.\-cpp.
+
+
+\begin{DoxyCode}
+20 \{
+21     \textcolor{comment}{// vList is a vector, which is based on stListContainer struct declared}
+22     \textcolor{comment}{// vList store the records: Remote AxxelBox IP, Remote AxxelBox Ports, Destination IP, Destination
+       Network Address, Time}
+23     \textcolor{comment}{// reserve enough memory for vList}
+24     vList.reserve(1000);
+25 \}
+\end{DoxyCode}
+
+
+The documentation for this class was generated from the following files\-:\begin{DoxyCompactItemize}
+\item 
+/home/abysmli/workspace/\-A\-D\-P/app/src/axxel\-\_\-discovery\-\_\-protokoll.\-h\item 
+/home/abysmli/workspace/\-A\-D\-P/app/src/Client.\-cpp\end{DoxyCompactItemize}

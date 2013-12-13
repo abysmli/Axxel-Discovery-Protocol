@@ -1,0 +1,2 @@
+PROJECT (ADP_src)
+ADD_SUBDIRECTORY (src)

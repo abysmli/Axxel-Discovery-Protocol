@@ -1,0 +1,554 @@
+\hypertarget{classLocalNetworkInformation}{\section{Local\-Network\-Information Class Reference}
+\label{classLocalNetworkInformation}\index{Local\-Network\-Information@{Local\-Network\-Information}}
+}
+
+
+collect the informations of local network,  
+
+
+
+
+{\ttfamily \#include $<$axxel\-\_\-discovery\-\_\-protokoll.\-h$>$}
+
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{classLocalNetworkInformation_abfc5f9ac0fdadb62ee1e2ab185a41e55}{Local\-Network\-Information} (void)
+\begin{DoxyCompactList}\small\item\em Constructor. \end{DoxyCompactList}\item 
+std\-::string \hyperlink{classLocalNetworkInformation_a63cf18e0d7cdc14426e4999ef397c981}{get\-Host\-Name} (void)
+\begin{DoxyCompactList}\small\item\em get Host Names and return it \end{DoxyCompactList}\item 
+\hypertarget{classLocalNetworkInformation_a5f0ad08e02985e56e8693398de34a709}{void \hyperlink{classLocalNetworkInformation_a5f0ad08e02985e56e8693398de34a709}{write\-Information} (void)}\label{classLocalNetworkInformation_a5f0ad08e02985e56e8693398de34a709}
+
+\begin{DoxyCompactList}\small\item\em save all records of v\-Routetable in Local\-Network\-Information.\-dat and in List.\-dat \end{DoxyCompactList}\item 
+\hypertarget{classLocalNetworkInformation_ae9406771f43259c0922ab445baf2ea3e}{void \hyperlink{classLocalNetworkInformation_ae9406771f43259c0922ab445baf2ea3e}{check\-Local\-Network\-Information} (void)}\label{classLocalNetworkInformation_ae9406771f43259c0922ab445baf2ea3e}
+
+\begin{DoxyCompactList}\small\item\em check the records of Local\-Network\-Information.\-dat and delete the same records \end{DoxyCompactList}\item 
+void \hyperlink{classLocalNetworkInformation_abac37b86a8590ef2b7d836903a4fbb07}{get\-Local\-Network\-Information\-\_\-v6} (int)  throw (\-Exception)
+\begin{DoxyCompactList}\small\item\em get ipv6 network informations\-: Network Address, Mask, Interface and store them in v\-Routetable \end{DoxyCompactList}\item 
+void \hyperlink{classLocalNetworkInformation_a891ef0a500a2b652e842fa067c751782}{get\-Local\-Network\-Information\-\_\-v4} (void)
+\begin{DoxyCompactList}\small\item\em get ipv4 network informations\-: Network Address, Mask, Interface and store them in v\-Routetable \end{DoxyCompactList}\item 
+\hypertarget{classLocalNetworkInformation_a0b3801b5492aeceaefaa2c9d8a38c86e}{\hyperlink{classLocalNetworkInformation_a0b3801b5492aeceaefaa2c9d8a38c86e}{$\sim$\-Local\-Network\-Information} (void)}\label{classLocalNetworkInformation_a0b3801b5492aeceaefaa2c9d8a38c86e}
+
+\begin{DoxyCompactList}\small\item\em Destructor. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+collect the informations of local network, 
+
+and save these in Local\-Network\-Information.\-dat, the informations include host name, host port, network address, mask, interface it can also automatic delete the same records 
+
+Definition at line 101 of file axxel\-\_\-discovery\-\_\-protokoll.\-h.
+
+
+
+\subsection{Constructor \& Destructor Documentation}
+\hypertarget{classLocalNetworkInformation_abfc5f9ac0fdadb62ee1e2ab185a41e55}{\index{Local\-Network\-Information@{Local\-Network\-Information}!Local\-Network\-Information@{Local\-Network\-Information}}
+\index{Local\-Network\-Information@{Local\-Network\-Information}!LocalNetworkInformation@{Local\-Network\-Information}}
+\subsubsection[{Local\-Network\-Information}]{\setlength{\rightskip}{0pt plus 5cm}Local\-Network\-Information\-::\-Local\-Network\-Information (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}}\label{classLocalNetworkInformation_abfc5f9ac0fdadb62ee1e2ab185a41e55}
+
+
+Constructor. 
+
+\hyperlink{LocalNetworkInformation_8cpp_source}{Local\-Network\-Information.\-cpp} Project\-: Axxel Discovery Protocol Created on\-: 2012-\/8-\/4 Author\-: Li, Yuan
+
+collect the informations of local network, and save these in Local\-Network\-Information.\-dat, the informations include host name, host port, network address, mask, interface it can also automatic delete the same records 
+
+Definition at line 18 of file Local\-Network\-Information.\-cpp.
+
+
+\begin{DoxyCode}
+19 \{
+20     \textcolor{comment}{// vRoutetable is a vector, which is based on stRoutetable struct declared}
+21     \textcolor{comment}{// vRoutetable store the records: Host Names, Host Ports, Network Address, Masks, Interfaces}
+22     \textcolor{comment}{// reserve enough memory for vRoutetable}
+23     vRoutetable.reserve(1000);
+24 \}
+\end{DoxyCode}
+
+
+\subsection{Member Function Documentation}
+\hypertarget{classLocalNetworkInformation_a63cf18e0d7cdc14426e4999ef397c981}{\index{Local\-Network\-Information@{Local\-Network\-Information}!get\-Host\-Name@{get\-Host\-Name}}
+\index{get\-Host\-Name@{get\-Host\-Name}!LocalNetworkInformation@{Local\-Network\-Information}}
+\subsubsection[{get\-Host\-Name}]{\setlength{\rightskip}{0pt plus 5cm}std\-::string Local\-Network\-Information\-::get\-Host\-Name (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}}\label{classLocalNetworkInformation_a63cf18e0d7cdc14426e4999ef397c981}
+
+
+get Host Names and return it 
+
+use gethostname function and getdomainname function to get host name and domain name \begin{DoxyReturn}{Returns}
+s\-Hostname \mbox{[}return \char`\"{}\-Host Name\char`\"{} + \char`\"{}.\char`\"{} + \char`\"{}\-Domain Name\char`\"{}\mbox{]} 
+\end{DoxyReturn}
+
+
+Definition at line 31 of file Local\-Network\-Information.\-cpp.
+
+
+\begin{DoxyCode}
+32 \{
+33     std::string sHostName = \textcolor{stringliteral}{""};
+34     \textcolor{keywordtype}{char} cHostName[50];
+35     \textcolor{keywordtype}{char} cDomainName[50];
+36     gethostname(cHostName, \textcolor{keyword}{sizeof}(cHostName));
+37     getdomainname(cDomainName, \textcolor{keyword}{sizeof}(cDomainName));
+38     sHostName = cHostName;
+39     sHostName += \textcolor{stringliteral}{"."};
+40     sHostName += cDomainName;
+41     \textcolor{keywordflow}{try}
+42     \{
+43         \textcolor{keywordflow}{if} (!strcmp(cHostName, \textcolor{stringliteral}{""}))
+44         \{
+45             \textcolor{keywordflow}{throw} \hyperlink{classException}{Exception}(6,
+46                     \textcolor{stringliteral}{"Get Host Name ERROR! No HostName! "} + getTime());
+47         \}
+48         \textcolor{keywordflow}{else}
+49         \{
+50         \}
+51         \textcolor{keywordflow}{if} (!strcmp(cDomainName, \textcolor{stringliteral}{""}))
+52         \{
+53             \textcolor{keywordflow}{throw} \hyperlink{classException}{Exception}(6,
+54                     \textcolor{stringliteral}{"Get Host Domain ERROR! No HostDomain! "} + getTime());
+55         \}
+56         \textcolor{keywordflow}{else}
+57         \{
+58         \}
+59 
+60     \} \textcolor{keywordflow}{catch} (\hyperlink{classException}{Exception} &\hyperlink{classException}{Exception})
+61     \{
+62         Exception.\hyperlink{classException_ac84241265b4b5c7a38be1d729d26aa28}{dispose}();
+63     \}
+64     \textcolor{keywordflow}{return} sHostName;
+65 \}
+\end{DoxyCode}
+\hypertarget{classLocalNetworkInformation_a891ef0a500a2b652e842fa067c751782}{\index{Local\-Network\-Information@{Local\-Network\-Information}!get\-Local\-Network\-Information\-\_\-v4@{get\-Local\-Network\-Information\-\_\-v4}}
+\index{get\-Local\-Network\-Information\-\_\-v4@{get\-Local\-Network\-Information\-\_\-v4}!LocalNetworkInformation@{Local\-Network\-Information}}
+\subsubsection[{get\-Local\-Network\-Information\-\_\-v4}]{\setlength{\rightskip}{0pt plus 5cm}void Local\-Network\-Information\-::get\-Local\-Network\-Information\-\_\-v4 (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}}\label{classLocalNetworkInformation_a891ef0a500a2b652e842fa067c751782}
+
+
+get ipv4 network informations\-: Network Address, Mask, Interface and store them in v\-Routetable 
+
+\begin{DoxyReturn}{Returns}
+v\-Routetable \mbox{[}return all datum from Local\-Network\-Information.\-dat\mbox{]} 
+\end{DoxyReturn}
+
+
+Definition at line 317 of file Local\-Network\-Information.\-cpp.
+
+
+\begin{DoxyCode}
+318 \{
+319     \textcolor{keywordflow}{try}
+320     \{
+321         \textcolor{comment}{// get datum from /proc/net/route}
+322         std::ifstream infile(\textcolor{stringliteral}{"/proc/net/route"});
+323         \textcolor{keywordflow}{if} (!infile)
+324         \{
+325             \textcolor{keywordflow}{throw} \hyperlink{classException}{Exception}(2,
+326                     \textcolor{stringliteral}{"Open File '/proc/net/route' by
+       LocalNetworkInformation::getLocalNetworkInformation\_v4() ERROR! "}
+327                             + getTime());
+328         \}
+329         \textcolor{keywordtype}{int} iRowNum = 0;
+330         \textcolor{comment}{// loop until the file pointer point to the end of file}
+331         \textcolor{keywordflow}{while} (!infile.eof() && ++iRowNum)
+332         \{
+333             \textcolor{keywordtype}{char} cLine[500];
+334             \textcolor{comment}{// get records from the file line by line}
+335             infile.getline(cLine, 500);
+336             \textcolor{keywordflow}{if} (iRowNum != 1)
+337             \{
+338                 \hyperlink{structstRoutetable}{stRoutetable} \hyperlink{structstRoutetable}{stRoutetable};
+339                 \textcolor{keyword}{const} \textcolor{keywordtype}{char} *cSeparator = \textcolor{stringliteral}{"   "};
+340                 \textcolor{keywordtype}{char} *cBuffer;
+341                 \textcolor{keywordtype}{bool} bFlag = \textcolor{keyword}{false};
+342                 \textcolor{comment}{// use strtok function to separate the line}
+343                 cBuffer = strtok(cLine, cSeparator);
+344                 \textcolor{keywordtype}{int} iSeparator = 0;
+345                 std::string sInterface = \textcolor{stringliteral}{""};
+346                 \textcolor{comment}{// iteration for separating of informations}
+347                 \textcolor{keywordflow}{while} (cBuffer)
+348                 \{
+349                     iSeparator++;
+350                     std::string sBuffer = cBuffer;
+351                     \textcolor{comment}{// the first rank is interface}
+352                     \textcolor{keywordflow}{if} (iSeparator == 1)
+353                     \{
+354                         sInterface = sBuffer;
+355                     \}
+356                     \textcolor{comment}{// the second rank is destination address}
+357                     \textcolor{comment}{// the eighth rank is netmask}
+358                     \textcolor{keywordflow}{if} (iSeparator == 2 || iSeparator == 8)
+359                     \{
+360                         \textcolor{keywordtype}{int} iPartValue[4];
+361                         \textcolor{keywordflow}{for} (\textcolor{keywordtype}{int} i = 0; i < 4; i++)
+362                         \{
+363                             std::stringstream convert(sBuffer.substr(i * 2, 2));
+364                             convert >> std::hex >> iPartValue[i];
+365                         \}
+366                         \textcolor{keywordflow}{if} (iSeparator == 2 && iPartValue[3] != 0
+367                                 && iPartValue[3] != 127 && iPartValue[3] != 169)
+368                         \{
+369                             bFlag = \textcolor{keyword}{true};
+370                         \}
+371                         std::string sConvertBuffer = \textcolor{stringliteral}{""};
+372                         \textcolor{keywordflow}{for} (\textcolor{keywordtype}{int} i = 3; i >= 0; i--)
+373                         \{
+374                             \textcolor{keywordflow}{if} (i == 0)
+375                             \{
+376                                 sConvertBuffer += convertIntToString(
+377                                         iPartValue[i]);
+378                             \}
+379                             \textcolor{keywordflow}{else}
+380                             \{
+381                                 sConvertBuffer += convertIntToString(
+382                                         iPartValue[i]) + \textcolor{stringliteral}{"."};
+383                             \}
+384                         \}
+385                         \textcolor{keywordflow}{if} (iSeparator == 2 && bFlag)
+386                         \{
+387                             stRoutetable.\hyperlink{structstRoutetable_af2c8c267f263fa0065ea71714550e846}{sNetworkAddress} = sConvertBuffer;
+388                         \}
+389                         \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (iSeparator == 8 && bFlag)
+390                         \{
+391                             stRoutetable.\hyperlink{structstRoutetable_a14f14d5a55c22279a8cfb7452c6e1148}{sMask} = sConvertBuffer;
+392                         \}
+393 
+394                     \}
+395 
+396                     cBuffer = strtok(NULL, cSeparator);
+397                 \}
+398                 \textcolor{keywordflow}{if} (bFlag)
+399                 \{
+400                     stRoutetable.\hyperlink{structstRoutetable_a5cdcd38c1c8a9fd2bb7a34b5550a5f8c}{sHostIP} = getIPAddress(sInterface, 4);
+401                     stRoutetable.\hyperlink{structstRoutetable_a02604c87af267a30c992c3c8f8e8366a}{sInterface} = sInterface;
+402                     stRoutetable.\hyperlink{structstRoutetable_a48bafcc14c088a68e976dd9a260dd6dd}{sHostPort} = convertIntToString(
+403                             iServerSidePortIPv4);
+404                     stRoutetable.\hyperlink{structstRoutetable_a7e4e8ff4c0d99dde9f168795056ae06c}{sHostName} = \hyperlink{classLocalNetworkInformation_a63cf18e0d7cdc14426e4999ef397c981}{getHostName}();
+405 
+406                     vRoutetable.push\_back(stRoutetable);
+407                 \}
+408             \}
+409         \}
+410         \textcolor{keywordtype}{int} iFlag = 0;
+411         \textcolor{keywordflow}{for} (\textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} i = 0; i < vRoutetable.size(); i++)
+412         \{
+413             \hyperlink{structstListContainer}{stListContainer} stList;
+414             stList.\hyperlink{structstListContainer_a661224bc268bac73ea4c4f179626f04b}{sRemoteABLocalIP} = getIPAddress(vRoutetable.at(i).sInterface,
+415                     4);
+416             stList.\hyperlink{structstListContainer_aeadf64994288c18847cb1b9fc244922f}{sRemoteABLocalPort} = convertIntToString(iServerSidePortIPv4);
+417             stList.\hyperlink{structstListContainer_ab4fde5a0381565943612e2e672b02513}{sDesIP} = vRoutetable.at(i).sNetworkAddress;
+418             stList.\hyperlink{structstListContainer_ae886a76fb72d96cbc124544538905ef8}{sDesNWAdress} = vRoutetable.at(i).sNetworkAddress;
+419             stList.\hyperlink{structstListContainer_acec007ec5b8190c8bf0242980b0b7528}{sTime} = getTime();
+420             \textcolor{keywordflow}{if} (sExternIPAddress == \textcolor{stringliteral}{""})
+421             \{
+422                 stList.\hyperlink{structstListContainer_a2d926770549c1af0e1282f20cdc241e5}{sRemoteABIP} = stList.\hyperlink{structstListContainer_a661224bc268bac73ea4c4f179626f04b}{sRemoteABLocalIP};
+423             \}
+424             \textcolor{keywordflow}{else}
+425             \{
+426                 stList.\hyperlink{structstListContainer_a2d926770549c1af0e1282f20cdc241e5}{sRemoteABIP} = sExternIPAddress;
+427             \}
+428             \textcolor{keywordflow}{if} (sExternPort == \textcolor{stringliteral}{""})
+429             \{
+430                 stList.\hyperlink{structstListContainer_ad2a9d2c715866e4fe3a2c588ab3105f0}{sRemoteABPort} = stList.\hyperlink{structstListContainer_aeadf64994288c18847cb1b9fc244922f}{sRemoteABLocalPort};
+431             \}
+432             \textcolor{keywordflow}{else}
+433             \{
+434                 stList.\hyperlink{structstListContainer_ad2a9d2c715866e4fe3a2c588ab3105f0}{sRemoteABPort} = sExternPort;
+435             \}
+436             vList.push\_back(stList);
+437             iFlag = i;
+438         \}
+439 
+440         \hyperlink{classLocalNetworkInformation_abac37b86a8590ef2b7d836903a4fbb07}{getLocalNetworkInformation\_v6}(iFlag + 1);
+441         \hyperlink{classLocalNetworkInformation_ae9406771f43259c0922ab445baf2ea3e}{checkLocalNetworkInformation}();
+442     \} \textcolor{keywordflow}{catch} (\hyperlink{classException}{Exception} &\hyperlink{classException}{Exception})
+443     \{
+444         Exception.\hyperlink{classException_ac84241265b4b5c7a38be1d729d26aa28}{dispose}();
+445     \} \textcolor{keywordflow}{catch} (...)
+446     \{
+447         Exception Exception(7, \textcolor{stringliteral}{"Iterator Error! "} + getTime());
+448         Exception.\hyperlink{classException_ac84241265b4b5c7a38be1d729d26aa28}{dispose}();
+449     \}
+450 \}
+\end{DoxyCode}
+\hypertarget{classLocalNetworkInformation_abac37b86a8590ef2b7d836903a4fbb07}{\index{Local\-Network\-Information@{Local\-Network\-Information}!get\-Local\-Network\-Information\-\_\-v6@{get\-Local\-Network\-Information\-\_\-v6}}
+\index{get\-Local\-Network\-Information\-\_\-v6@{get\-Local\-Network\-Information\-\_\-v6}!LocalNetworkInformation@{Local\-Network\-Information}}
+\subsubsection[{get\-Local\-Network\-Information\-\_\-v6}]{\setlength{\rightskip}{0pt plus 5cm}void Local\-Network\-Information\-::get\-Local\-Network\-Information\-\_\-v6 (
+\begin{DoxyParamCaption}
+\item[{int}]{i\-Flag}
+\end{DoxyParamCaption}
+)  throw ({\bf Exception})}}\label{classLocalNetworkInformation_abac37b86a8590ef2b7d836903a4fbb07}
+
+
+get ipv6 network informations\-: Network Address, Mask, Interface and store them in v\-Routetable 
+
+
+\begin{DoxyParams}{Parameters}
+{\em i\-Flag} & \mbox{[}the position of v\-Routetable\mbox{]} \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+v\-Routetable \mbox{[}return all datum from Local\-Network\-Information.\-dat\mbox{]} 
+\end{DoxyReturn}
+
+
+Definition at line 72 of file Local\-Network\-Information.\-cpp.
+
+
+\begin{DoxyCode}
+74 \{
+75     \textcolor{comment}{// get datum from /proc/net/route}
+76     std::ifstream infile(\textcolor{stringliteral}{"/proc/net/ipv6\_route"});
+77     \textcolor{comment}{// /proc/net/route can not be opened}
+78     \textcolor{keywordflow}{if} (!infile)
+79     \{
+80         \textcolor{keywordflow}{throw} \hyperlink{classException}{Exception}(2,
+81                 \textcolor{stringliteral}{"Open File '/proc/net/route' by LocalNetworkInformation::getLocalNetworkInformation\_v6()
+       ERROR! "}
+82                         + getTime());
+83     \}
+84     \textcolor{comment}{// loop until the file pointer point to the end of file}
+85     \textcolor{keywordflow}{while} (!infile.eof())
+86     \{
+87 
+88         \textcolor{keywordtype}{char} cLine[500];
+89         \textcolor{comment}{// get records from the file line by line}
+90         infile.getline(cLine, 500);
+91         \hyperlink{structstRoutetable}{stRoutetable} \hyperlink{structstRoutetable}{stRoutetable};
+92         \textcolor{keyword}{const} \textcolor{keywordtype}{char} *cSeparator = \textcolor{stringliteral}{"   "};
+93         \textcolor{keywordtype}{char} *cBuffer;
+94         \textcolor{keywordtype}{bool} bFlag = \textcolor{keyword}{false};
+95         \textcolor{comment}{// use strtok function to separate the line}
+96         cBuffer = strtok(cLine, cSeparator);
+97 
+98         \textcolor{keywordtype}{int} iSeparator = 0;
+99         std::string sInterface = \textcolor{stringliteral}{""};
+100         std::string sDestinationNetwork = \textcolor{stringliteral}{""};
+101         std::string sDestinationPrefixLength = \textcolor{stringliteral}{""};
+102         \textcolor{comment}{// iteration for separating of informations}
+103         \textcolor{keywordflow}{while} (cBuffer)
+104         \{
+105             iSeparator++;
+106             std::string sBuffer = cBuffer;
+107             \textcolor{comment}{// the first rank of /proc/net/route is ipv6 destination address}
+108             \textcolor{keywordflow}{if} (iSeparator == 1)
+109             \{
+110                 \textcolor{comment}{// rule out the ipv6 address which began with "0000", "ff02", "fe08", "ff00" or "fc02"}
+111                 \textcolor{keywordflow}{if} (sBuffer.substr(0, 4) != \textcolor{stringliteral}{"0000"}
+112                         && sBuffer.substr(0, 4) != \textcolor{stringliteral}{"ff02"}
+113                         && sBuffer.substr(0, 4) != \textcolor{stringliteral}{"fe80"}
+114                         && sBuffer.substr(0, 4) != \textcolor{stringliteral}{"ff00"}
+115                         && sBuffer.substr(0, 4) != \textcolor{stringliteral}{"fc02"})
+116                 \{
+117                     bFlag = \textcolor{keyword}{true};
+118                     sDestinationNetwork = sBuffer;
+119                 \}
+120 
+121             \}
+122             \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (iSeparator == 10 && bFlag)
+123             \{
+124                 sInterface = sBuffer;
+125             \}
+126             \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (iSeparator == 2 && bFlag)
+127             \{
+128                 sDestinationPrefixLength = sBuffer;
+129             \}
+130             cBuffer = strtok(NULL, cSeparator);
+131         \}
+132 
+133         \textcolor{keywordflow}{if} (bFlag)
+134         \{
+135             \textcolor{keywordflow}{if} (sInterface != \textcolor{stringliteral}{"lo"})
+136             \{
+137                 std::string sNetworkAddress = \textcolor{stringliteral}{""};
+138                 std::string sNetmask = \textcolor{stringliteral}{""};
+139 
+140                 \textcolor{keywordtype}{int} iDestinationPrefixLength = 0;
+141                 \textcolor{comment}{// calculate the network address and netmask from destination address}
+142                 iDestinationPrefixLength = ((sDestinationPrefixLength[0] - 48)
+143                         * 16 + sDestinationPrefixLength[1] - 48) / 4;
+144                 sNetworkAddress = sDestinationNetwork.substr(0,
+145                         iDestinationPrefixLength);
+146                 sNetmask = sDestinationNetwork.substr(iDestinationPrefixLength,
+147                         32 - iDestinationPrefixLength);
+148                 std::string sNetworkAddressBuffer;
+149                 std::string sNetmaskBuffer;
+150 
+151                 \textcolor{comment}{// the abbreviation of ipv6 address}
+152                 \textcolor{keywordflow}{for} (\textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} i = 0; i < sNetworkAddress.length() / 4; i++)
+153                 \{
+154                     \textcolor{keywordflow}{if} (i == sNetworkAddress.length() / 4 - 1)
+155                     \{
+156                         \textcolor{keywordflow}{if} (sNetworkAddress.substr(i * 4, 4) == \textcolor{stringliteral}{"0000"})
+157                         \{
+158                             sNetworkAddressBuffer += \textcolor{stringliteral}{"0"};
+159                         \}
+160                         \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (sNetworkAddress.substr(i * 4, 3) == \textcolor{stringliteral}{"000"})
+161                         \{
+162                             sNetworkAddressBuffer += sNetworkAddress.substr(
+163                                     i * 4 + 3, 1);
+164                         \}
+165                         \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (sNetworkAddress.substr(i * 4, 2) == \textcolor{stringliteral}{"00"})
+166                         \{
+167                             sNetworkAddressBuffer += sNetworkAddress.substr(
+168                                     i * 4 + 2, 2);
+169                         \}
+170                         \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (sNetworkAddress.substr(i * 4, 1) == \textcolor{stringliteral}{"0"})
+171                         \{
+172                             sNetworkAddressBuffer += sNetworkAddress.substr(
+173                                     i * 4 + 1, 3);
+174                         \}
+175                         \textcolor{keywordflow}{else}
+176                         \{
+177                             sNetworkAddressBuffer += sNetworkAddress.substr(
+178                                     i * 4, 4);
+179                         \}
+180                     \}
+181                     \textcolor{keywordflow}{else}
+182                     \{
+183                         \textcolor{keywordflow}{if} (sNetworkAddress.substr(i * 4, 4) == \textcolor{stringliteral}{"0000"})
+184                         \{
+185                             sNetworkAddressBuffer += \textcolor{stringliteral}{"0:"};
+186                         \}
+187                         \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (sNetworkAddress.substr(i * 4, 3) == \textcolor{stringliteral}{"000"})
+188                         \{
+189                             sNetworkAddressBuffer += sNetworkAddress.substr(
+190                                     i * 4 + 3, 1) + \textcolor{stringliteral}{":"};
+191                         \}
+192                         \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (sNetworkAddress.substr(i * 4, 2) == \textcolor{stringliteral}{"00"})
+193                         \{
+194                             sNetworkAddressBuffer += sNetworkAddress.substr(
+195                                     i * 4 + 2, 2) + \textcolor{stringliteral}{":"};
+196                         \}
+197                         \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (sNetworkAddress.substr(i * 4, 1) == \textcolor{stringliteral}{"0"})
+198                         \{
+199                             sNetworkAddressBuffer += sNetworkAddress.substr(
+200                                     i * 4 + 1, 3) + \textcolor{stringliteral}{":"};
+201                         \}
+202                         \textcolor{keywordflow}{else}
+203                         \{
+204                             sNetworkAddressBuffer += sNetworkAddress.substr(
+205                                     i * 4, 4) + \textcolor{stringliteral}{":"};
+206                         \}
+207 
+208                     \}
+209 
+210                 \}
+211 
+212                 \textcolor{keywordflow}{for} (\textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} i = 0; i < sNetmask.length() / 4; i++)
+213                 \{
+214                     \textcolor{keywordflow}{if} (i == sNetmask.length() / 4 - 1)
+215                     \{
+216                         \textcolor{keywordflow}{if} (sNetmask.substr(i * 4, 4) == \textcolor{stringliteral}{"0000"})
+217                         \{
+218                             sNetmaskBuffer += \textcolor{stringliteral}{"0"};
+219                         \}
+220                         \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (sNetmask.substr(i * 4, 3) == \textcolor{stringliteral}{"000"})
+221                         \{
+222                             sNetmaskBuffer += sNetmask.substr(i * 4 + 3, 1);
+223                         \}
+224                         \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (sNetmask.substr(i * 4, 2) == \textcolor{stringliteral}{"00"})
+225                         \{
+226                             sNetmaskBuffer += sNetmask.substr(i * 4 + 2, 2);
+227                         \}
+228                         \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (sNetmask.substr(i * 4, 1) == \textcolor{stringliteral}{"0"})
+229                         \{
+230                             sNetmaskBuffer += sNetmask.substr(i * 4 + 1, 3);
+231                         \}
+232                         \textcolor{keywordflow}{else}
+233                         \{
+234                             sNetmaskBuffer += sNetmask.substr(i * 4, 4);
+235                         \}
+236                     \}
+237                     \textcolor{keywordflow}{else}
+238                     \{
+239                         \textcolor{keywordflow}{if} (sNetmask.substr(i * 4, 4) == \textcolor{stringliteral}{"0000"})
+240                         \{
+241                             sNetmaskBuffer += \textcolor{stringliteral}{"0:"};
+242                         \}
+243                         \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (sNetmask.substr(i * 4, 3) == \textcolor{stringliteral}{"000"})
+244                         \{
+245                             sNetmaskBuffer += sNetmask.substr(i * 4 + 3, 1)
+246                                     + \textcolor{stringliteral}{":"};
+247                         \}
+248                         \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (sNetmask.substr(i * 4, 2) == \textcolor{stringliteral}{"00"})
+249                         \{
+250                             sNetmaskBuffer += sNetmask.substr(i * 4 + 2, 2)
+251                                     + \textcolor{stringliteral}{":"};
+252                         \}
+253                         \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (sNetmask.substr(i * 4, 1) == \textcolor{stringliteral}{"0"})
+254                         \{
+255                             sNetmaskBuffer += sNetmask.substr(i * 4 + 1, 3)
+256                                     + \textcolor{stringliteral}{":"};
+257                         \}
+258                         \textcolor{keywordflow}{else}
+259                         \{
+260                             sNetmaskBuffer += sNetmask.substr(i * 4, 4) + \textcolor{stringliteral}{":"};
+261                         \}
+262 
+263                     \}
+264 
+265                 \}
+266                 sNetworkAddress = sNetworkAddressBuffer;
+267                 sNetmask = sNetmaskBuffer;
+268                 stRoutetable.\hyperlink{structstRoutetable_af2c8c267f263fa0065ea71714550e846}{sNetworkAddress} = sNetworkAddress;
+269                 stRoutetable.\hyperlink{structstRoutetable_a5cdcd38c1c8a9fd2bb7a34b5550a5f8c}{sHostIP} = getIPAddress(sInterface, 6);
+270                 stRoutetable.\hyperlink{structstRoutetable_a14f14d5a55c22279a8cfb7452c6e1148}{sMask} = sNetmask;
+271                 stRoutetable.\hyperlink{structstRoutetable_a02604c87af267a30c992c3c8f8e8366a}{sInterface} = sInterface;
+272                 stRoutetable.\hyperlink{structstRoutetable_a48bafcc14c088a68e976dd9a260dd6dd}{sHostPort} = convertIntToString(
+273                         iServerSidePortIPv6);
+274                 stRoutetable.\hyperlink{structstRoutetable_a7e4e8ff4c0d99dde9f168795056ae06c}{sHostName} = \hyperlink{classLocalNetworkInformation_a63cf18e0d7cdc14426e4999ef397c981}{getHostName}();
+275                 vRoutetable.push\_back(stRoutetable);
+276             \}
+277 
+278         \}
+279         \textcolor{keywordflow}{else}
+280         \{
+281         \}
+282     \}
+283     \textcolor{keywordflow}{for} (\textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} i = iFlag; i < vRoutetable.size(); i++)
+284     \{
+285         \hyperlink{structstListContainer}{stListContainer} stList;
+286         stList.\hyperlink{structstListContainer_a661224bc268bac73ea4c4f179626f04b}{sRemoteABLocalIP} = getIPAddress(vRoutetable.at(i).sInterface, 6);
+287         stList.\hyperlink{structstListContainer_aeadf64994288c18847cb1b9fc244922f}{sRemoteABLocalPort} = convertIntToString(iServerSidePortIPv6);
+288         stList.\hyperlink{structstListContainer_ab4fde5a0381565943612e2e672b02513}{sDesIP} = vRoutetable.at(i).sNetworkAddress;
+289         stList.\hyperlink{structstListContainer_ae886a76fb72d96cbc124544538905ef8}{sDesNWAdress} = vRoutetable.at(i).sNetworkAddress;
+290         stList.\hyperlink{structstListContainer_acec007ec5b8190c8bf0242980b0b7528}{sTime} = getTime();
+291         \textcolor{keywordflow}{if} (sExternIPAddress == \textcolor{stringliteral}{""})
+292         \{
+293             stList.\hyperlink{structstListContainer_a2d926770549c1af0e1282f20cdc241e5}{sRemoteABIP} = stList.\hyperlink{structstListContainer_a661224bc268bac73ea4c4f179626f04b}{sRemoteABLocalIP};
+294         \}
+295         \textcolor{keywordflow}{else}
+296         \{
+297             stList.\hyperlink{structstListContainer_a2d926770549c1af0e1282f20cdc241e5}{sRemoteABIP} = sExternIPAddress;
+298         \}
+299         \textcolor{keywordflow}{if} (sExternPort == \textcolor{stringliteral}{""})
+300         \{
+301             stList.\hyperlink{structstListContainer_ad2a9d2c715866e4fe3a2c588ab3105f0}{sRemoteABPort} = stList.\hyperlink{structstListContainer_aeadf64994288c18847cb1b9fc244922f}{sRemoteABLocalPort};
+302         \}
+303         \textcolor{keywordflow}{else}
+304         \{
+305             stList.\hyperlink{structstListContainer_ad2a9d2c715866e4fe3a2c588ab3105f0}{sRemoteABPort} = sExternPort;
+306         \}
+307         vList.push\_back(stList);
+308     \}
+309     \textcolor{comment}{// call writeInformation to write the datum in files}
+310     \hyperlink{classLocalNetworkInformation_a5f0ad08e02985e56e8693398de34a709}{writeInformation}();
+311 \}
+\end{DoxyCode}
+
+
+The documentation for this class was generated from the following files\-:\begin{DoxyCompactItemize}
+\item 
+/home/abysmli/workspace/\-A\-D\-P/app/src/axxel\-\_\-discovery\-\_\-protokoll.\-h\item 
+/home/abysmli/workspace/\-A\-D\-P/app/src/Local\-Network\-Information.\-cpp\end{DoxyCompactItemize}

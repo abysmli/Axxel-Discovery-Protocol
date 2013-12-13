@@ -1,0 +1,767 @@
+\hypertarget{classServer}{\section{Server Class Reference}
+\label{classServer}\index{Server@{Server}}
+}
+
+
+running as server thread  
+
+
+
+
+{\ttfamily \#include $<$axxel\-\_\-discovery\-\_\-protokoll.\-h$>$}
+
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{classServer_ad5ec9462b520e59f7ea831e157ee5e59}{Server} ()
+\begin{DoxyCompactList}\small\item\em Constructor. \end{DoxyCompactList}\item 
+std\-::vector$<$ \hyperlink{structstListContainer}{st\-List\-Container} $>$ \hyperlink{classServer_a36e2161377e0960cbafa5bef009c57de}{get\-List} (const std\-::string)
+\item 
+void \hyperlink{classServer_a10cfd4823ae5286931cbaaf487bd5739}{compare\-List} (std\-::vector$<$ \hyperlink{structstListContainer}{st\-List\-Container} $>$, std\-::vector$<$ \hyperlink{structstListContainer}{st\-List\-Container} $>$, std\-::string)
+\begin{DoxyCompactList}\small\item\em List contrast. \end{DoxyCompactList}\item 
+void \hyperlink{classServer_a11f06bf832df7df4c73e4c8d8088bc40}{write\-List} (std\-::string)
+\begin{DoxyCompactList}\small\item\em save the compared List in List.\-dat \end{DoxyCompactList}\item 
+void \hyperlink{classServer_a62a882e58b732a5968d3f70f85786898}{check\-Element} (std\-::vector$<$ \hyperlink{structstListContainer}{st\-List\-Container} $>$)
+\begin{DoxyCompactList}\small\item\em find out the same records and deleted them \end{DoxyCompactList}\item 
+void \hyperlink{classServer_a00509bf6473b95160150d4e28b072968}{start\-Server} (void)
+\begin{DoxyCompactList}\small\item\em start the server side in an alone thread \end{DoxyCompactList}\item 
+void \hyperlink{classServer_a660e72a3e489abde31f99691be7156f2}{start\-Server\-\_\-\-W\-I\-T\-H\-I\-P\-V6} (void)
+\begin{DoxyCompactList}\small\item\em start the ipv6 server side in an alone thread \end{DoxyCompactList}\item 
+bool \hyperlink{classServer_a5443bb5b2850f0c3b6b21212adc4fa07}{check\-Time} (std\-::string)
+\begin{DoxyCompactList}\small\item\em find out the remote Axxel\-Box, which more than 3 hours can not be connected \end{DoxyCompactList}\item 
+\hypertarget{classServer_a4b3aa2579cb1c8cd1d069582c14d0fa6}{\hyperlink{classServer_a4b3aa2579cb1c8cd1d069582c14d0fa6}{$\sim$\-Server} ()}\label{classServer_a4b3aa2579cb1c8cd1d069582c14d0fa6}
+
+\begin{DoxyCompactList}\small\item\em Destructor. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+running as server thread 
+
+collect and manage datum, which received by server side save these datum in List.\-dat and automatic delete same records automatic delete disconnective remote Axxel\-Box records 
+
+Definition at line 133 of file axxel\-\_\-discovery\-\_\-protokoll.\-h.
+
+
+
+\subsection{Constructor \& Destructor Documentation}
+\hypertarget{classServer_ad5ec9462b520e59f7ea831e157ee5e59}{\index{Server@{Server}!Server@{Server}}
+\index{Server@{Server}!Server@{Server}}
+\subsubsection[{Server}]{\setlength{\rightskip}{0pt plus 5cm}Server\-::\-Server (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{classServer_ad5ec9462b520e59f7ea831e157ee5e59}
+
+
+Constructor. 
+
+\hyperlink{Server_8cpp_source}{Server.\-cpp} Project\-: Axxel Discovery Protocol Created on\-: 2012-\/8-\/4 Author\-: Li, Yuan
+
+running as server thread collect and manage datum, which received by server side save these datum in List.\-dat and automatic delete same records automatic delete disconnective remote Axxel\-Box records 
+
+Definition at line 17 of file Server.\-cpp.
+
+
+\begin{DoxyCode}
+18 \{
+19     \textcolor{comment}{// vDiffList is a vector, which is based on stListContainer struct declared}
+20     \textcolor{comment}{// vDiffList store the records: Remote AxxelBox IP, Remote AxxelBox Ports, Destination IP, Destination
+       Network Address, Time}
+21     \textcolor{comment}{// reserve enough memory for vDiffList}
+22     vDiffList.reserve(1000);
+23 \}
+\end{DoxyCode}
+
+
+\subsection{Member Function Documentation}
+\hypertarget{classServer_a62a882e58b732a5968d3f70f85786898}{\index{Server@{Server}!check\-Element@{check\-Element}}
+\index{check\-Element@{check\-Element}!Server@{Server}}
+\subsubsection[{check\-Element}]{\setlength{\rightskip}{0pt plus 5cm}void Server\-::check\-Element (
+\begin{DoxyParamCaption}
+\item[{std\-::vector$<$ {\bf st\-List\-Container} $>$}]{v\-List}
+\end{DoxyParamCaption}
+)}}\label{classServer_a62a882e58b732a5968d3f70f85786898}
+
+
+find out the same records and deleted them 
+
+find out the wrong records and deleted them find out the remote Axxel\-Box, which more than 3 hours can not be connected 
+\begin{DoxyParams}{Parameters}
+{\em v\-List} & \mbox{[}all datum from List.\-dat\mbox{]} \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 296 of file Server.\-cpp.
+
+
+\begin{DoxyCode}
+297 \{
+298 \textcolor{comment}{// find out the same records and deleted them}
+299 \textcolor{comment}{// iterator i traverse from end to begin}
+300     \textcolor{keywordflow}{for} (std::vector<stListContainer>::iterator i = vList.end() - 1;
+301             i != vList.begin();)
+302     \{
+303         \textcolor{comment}{// iterator j traverse from begin to i}
+304         \textcolor{keywordflow}{for} (std::vector<stListContainer>::iterator j = vList.begin(); j < i;)
+305         \{
+306 
+307             \textcolor{keywordflow}{if} ((i->sRemoteABIP == j->sRemoteABIP
+308                     && i->sRemoteABPort == j->sRemoteABPort
+309                     && i->sDesIP == j->sDesIP
+310                     && i->sDesNWAdress == j->sDesNWAdress))
+311             \{
+312                 \textcolor{comment}{// deleted the same records}
+313                 j = vList.erase(j);
+314             \}
+315             \textcolor{keywordflow}{else}
+316             \{
+317                 j++;
+318             \}
+319         \}
+320         i--;
+321     \}
+322 
+323 \textcolor{comment}{// find out the wrong records and deleted them}
+324 \textcolor{comment}{// find out the remote AxxelBox, which more than 3 hours can not be connected}
+325 \textcolor{comment}{// iterator i traverse from begin to end}
+326     \textcolor{keywordflow}{for} (std::vector<stListContainer>::iterator i = vList.begin();
+327             i != vList.end();)
+328     \{
+329         \textcolor{comment}{// sRemoteABPort is empty means this record wrong}
+330         \textcolor{comment}{// call checkTime in order to determine whether this remote AxxelBox can be connected or not}
+331         \textcolor{keywordflow}{if} (i->sRemoteABPort == \textcolor{stringliteral}{""} || i->sRemoteABIP == \textcolor{stringliteral}{""} || i->sDesIP == \textcolor{stringliteral}{""}
+332                 || i->sDesNWAdress == \textcolor{stringliteral}{""} || \hyperlink{classServer_a5443bb5b2850f0c3b6b21212adc4fa07}{checkTime}(i->sTime))
+333         \{
+334             i = vList.erase(i);
+335             \textcolor{keywordflow}{if} (\hyperlink{classServer_a5443bb5b2850f0c3b6b21212adc4fa07}{checkTime}(i->sTime))
+336             \{
+337                 \textcolor{keywordflow}{try}
+338                 \{
+339                     \textcolor{keywordflow}{throw} \hyperlink{classException}{Exception}(8,
+340                             \textcolor{stringliteral}{"Warning! "} + i->sRemoteABIP
+341                                     + \textcolor{stringliteral}{" can not connected already "}
+342                                     + convertIntToString(iLostTime)
+343                                     + \textcolor{stringliteral}{" hours! It will be deleted! "}
+344                                     + getTime());
+345 
+346                 \} \textcolor{keywordflow}{catch} (\hyperlink{classException}{Exception} &\hyperlink{classException}{Exception})
+347                 \{
+348                     Exception.\hyperlink{classException_ac84241265b4b5c7a38be1d729d26aa28}{dispose}();
+349                 \}
+350             \}
+351         \}
+352         \textcolor{keywordflow}{else}
+353         \{
+354             i++;
+355         \}
+356     \}
+357     \textcolor{comment}{// keep the original commentary not to change}
+358     std::ifstream infile(\textcolor{stringliteral}{"List.dat"});
+359     \textcolor{keywordflow}{if} (!infile)
+360     \{
+361         \textcolor{keywordflow}{throw} \hyperlink{classException}{Exception}(2,
+362                 \textcolor{stringliteral}{"Open File 'List.dat' by Server::checkElement() ERROR! "}
+363                         + getTime());
+364     \}
+365     std::string sList[50];
+366     \textcolor{keywordtype}{int} iRowNum = 0;
+367     \textcolor{keywordflow}{while} (getline(infile, sList[iRowNum++]))
+368     \{
+369         \textcolor{keywordflow}{if} (sList[iRowNum - 1][0] != 35)
+370         \{
+371             \textcolor{keywordflow}{break};
+372         \}
+373         \textcolor{keywordflow}{else}
+374         \{
+375         \}
+376     \}
+377     infile.close();
+378     \textcolor{comment}{// save vList in List.dat}
+379     std::ofstream outfile(\textcolor{stringliteral}{"List.dat"}, std::ios::out);
+380     \textcolor{keywordflow}{if} (!infile)
+381     \{
+382         \textcolor{keywordflow}{throw} \hyperlink{classException}{Exception}(2,
+383                 \textcolor{stringliteral}{"Open File 'List.dat' by Server::checkElement() ERROR! "}
+384                         + getTime());
+385     \}
+386     \textcolor{keywordflow}{for} (\textcolor{keywordtype}{int} i = 0; i < iRowNum - 1; i++)
+387     \{
+388         outfile << sList[i] << std::endl;
+389     \}
+390     outfile.setf(std::ios::left);
+391     \textcolor{keywordflow}{for} (\textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} i = 0; i < vList.size(); i++)
+392     \{
+393         outfile << std::setw(30) << vList.at(i).sRemoteABIP << std::setw(25)
+394                 << vList.at(i).sRemoteABPort << std::setw(30)
+395                 << vList.at(i).sRemoteABLocalIP << std::setw(30)
+396                 << vList.at(i).sRemoteABLocalPort << std::setw(30)
+397                 << vList.at(i).sDesIP << std::setw(30)
+398                 << vList.at(i).sDesNWAdress << std::setw(20)
+399                 << vList.at(i).sTime << std::endl;
+400     \}
+401     vList.clear();
+402     outfile.close();
+403 \}
+\end{DoxyCode}
+\hypertarget{classServer_a5443bb5b2850f0c3b6b21212adc4fa07}{\index{Server@{Server}!check\-Time@{check\-Time}}
+\index{check\-Time@{check\-Time}!Server@{Server}}
+\subsubsection[{check\-Time}]{\setlength{\rightskip}{0pt plus 5cm}bool Server\-::check\-Time (
+\begin{DoxyParamCaption}
+\item[{std\-::string}]{s\-Record\-Time}
+\end{DoxyParamCaption}
+)}}\label{classServer_a5443bb5b2850f0c3b6b21212adc4fa07}
+
+
+find out the remote Axxel\-Box, which more than 3 hours can not be connected 
+
+
+\begin{DoxyParams}{Parameters}
+{\em s\-Record\-Time} & \mbox{[}Record's Time\mbox{]} \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+false \mbox{[}means this record should not be deleted\mbox{]} 
+
+true \mbox{[}means this record should be deleted\mbox{]} 
+\end{DoxyReturn}
+
+
+Definition at line 258 of file Server.\-cpp.
+
+
+\begin{DoxyCode}
+259 \{
+260 \textcolor{comment}{// no time record, wait for time stamp, should not be deleted}
+261     \textcolor{keywordflow}{if} (sRecordTime == \textcolor{stringliteral}{""})
+262     \{
+263         \textcolor{keywordflow}{return} \textcolor{keyword}{false};
+264     \}
+265     \textcolor{keywordflow}{else}
+266     \{
+267         \textcolor{comment}{// get current Time}
+268         std::string sNowTime = getTime();
+269         \textcolor{comment}{// store current time's hour in iNowTimeHour in integer}
+270         \textcolor{keywordtype}{int} iNowTimeHour = (sNowTime[11] - 48) * 10 + sNowTime[12] - 48;
+271         \textcolor{comment}{// store record's time's hour in iRecordTimeHour in integer}
+272         \textcolor{keywordtype}{int} iRecordTimeHour = (sRecordTime[11] - 48) * 10 + sRecordTime[12]
+273                 - 48;
+274         \textcolor{comment}{// difference between iNowTimeHour and iRecordTimeHour more than iLostTime hours -> this record
+       should be deleted}
+275         \textcolor{keywordflow}{if} (((sNowTime[1] == sRecordTime[1])
+276                 && (abs(iNowTimeHour - iRecordTimeHour) <= iLostTime))
+277                 || ((sNowTime[1] - sRecordTime[1] == 1)
+278                         && (((24 - iRecordTimeHour) + iNowTimeHour) <= iLostTime)))
+279         \{
+280             \textcolor{keywordflow}{return} \textcolor{keyword}{false};
+281         \}
+282         \textcolor{keywordflow}{else}
+283         \{
+284 
+285             \textcolor{keywordflow}{return} \textcolor{keyword}{true};
+286         \}
+287     \}
+288 \}
+\end{DoxyCode}
+\hypertarget{classServer_a10cfd4823ae5286931cbaaf487bd5739}{\index{Server@{Server}!compare\-List@{compare\-List}}
+\index{compare\-List@{compare\-List}!Server@{Server}}
+\subsubsection[{compare\-List}]{\setlength{\rightskip}{0pt plus 5cm}void Server\-::compare\-List (
+\begin{DoxyParamCaption}
+\item[{std\-::vector$<$ {\bf st\-List\-Container} $>$}]{v\-Temp\-List, }
+\item[{std\-::vector$<$ {\bf st\-List\-Container} $>$}]{v\-Local\-List, }
+\item[{std\-::string}]{s\-I\-P}
+\end{DoxyParamCaption}
+)}}\label{classServer_a10cfd4823ae5286931cbaaf487bd5739}
+
+
+List contrast. 
+
+find out the difference between local List.\-dat and received List.\-dat update time stamp of records 
+\begin{DoxyParams}{Parameters}
+{\em v\-Temp\-List} & \mbox{[}all datum from the file \char`\"{}\-Temp\char`\"{}\mbox{]} \\
+\hline
+{\em v\-Local\-List} & \mbox{[}all datum from the local file \char`\"{}\-List.\-dat\char`\"{}\mbox{]} \\
+\hline
+{\em s\-I\-P} & \mbox{[}client side's I\-P address\mbox{]} \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 442 of file Server.\-cpp.
+
+
+\begin{DoxyCode}
+444 \{
+445 \textcolor{comment}{// update time stamp of remote AxxelBox which sent this List in received List.dat}
+446     \textcolor{keywordflow}{for} (\textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} i = 0; i < vTempList.size(); i++)
+447     \{
+448         \textcolor{keywordflow}{if} (vTempList.at(i).sRemoteABIP == sIP)
+449         \{
+450             vTempList.at(i).sTime = getTime();
+451             vDiffList.push\_back(vTempList.at(i));
+452         \}
+453         \textcolor{keywordflow}{else}
+454         \{
+455         \}
+456     \}
+457 \textcolor{comment}{// update time stamp of remote AxxelBox which sent this List in local List.dat}
+458     \textcolor{keywordflow}{for} (\textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} i = 0; i < vLocalList.size(); i++)
+459     \{
+460         \textcolor{keywordflow}{if} (vLocalList.at(i).sRemoteABIP == sIP)
+461         \{
+462             vLocalList.at(i).sTime = getTime();
+463             vDiffList.push\_back(vLocalList.at(i));
+464         \}
+465         \textcolor{keywordflow}{else}
+466         \{
+467 
+468         \}
+469     \}
+470 \textcolor{comment}{// find out the difference between local List.dat and received List.dat}
+471     \textcolor{keywordflow}{for} (\textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} i = 0; i < vTempList.size(); i++)
+472     \{
+473         \textcolor{comment}{// bJudgeFlag = true means the records is the same}
+474         \textcolor{keywordtype}{bool} bJudgeFlag = \textcolor{keyword}{false};
+475         \textcolor{keywordflow}{for} (\textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} j = 0; j <= vLocalList.size() - 1; j++)
+476         \{
+477             \textcolor{keywordflow}{if} (vTempList.at(i).sRemoteABIP == vLocalList.at(j).sRemoteABIP
+478                     && vTempList.at(i).sRemoteABPort
+479                             == vLocalList.at(j).sRemoteABPort
+480                     && vTempList.at(i).sDesIP == vLocalList.at(j).sDesIP
+481                     && vTempList.at(i).sDesNWAdress
+482                             == vLocalList.at(j).sDesNWAdress)
+483             \{
+484                 bJudgeFlag = \textcolor{keyword}{true};
+485             \}
+486             \textcolor{keywordflow}{else}
+487             \{
+488             \}
+489         \}
+490         \textcolor{comment}{// when the received record is different, store it in vDiffList}
+491         \textcolor{keywordflow}{if} (!bJudgeFlag)
+492         \{
+493             vDiffList.push\_back(vTempList.at(i));
+494         \}
+495         \textcolor{keywordflow}{else}
+496         \{
+497 
+498         \}
+499     \}
+500     vTempList.clear();
+501     vLocalList.clear();
+502 \}
+\end{DoxyCode}
+\hypertarget{classServer_a36e2161377e0960cbafa5bef009c57de}{\index{Server@{Server}!get\-List@{get\-List}}
+\index{get\-List@{get\-List}!Server@{Server}}
+\subsubsection[{get\-List}]{\setlength{\rightskip}{0pt plus 5cm}std\-::vector$<$ {\bf st\-List\-Container} $>$ Server\-::get\-List (
+\begin{DoxyParamCaption}
+\item[{const std\-::string}]{s\-File\-Name}
+\end{DoxyParamCaption}
+)}}\label{classServer_a36e2161377e0960cbafa5bef009c57de}
+get remote Axxel\-Box I\-P, remote Axxel\-Box Port, Destination I\-P, Destination Network Address and Time from List.\-dat
+
+and save them in v\-List 
+\begin{DoxyParams}{Parameters}
+{\em s\-File\-Name} & \mbox{[}file name, from which the datum will be got\mbox{]} \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+v\-List \mbox{[}return v\-List with all datum of List.\-dat\mbox{]} 
+\end{DoxyReturn}
+
+
+Definition at line 510 of file Server.\-cpp.
+
+
+\begin{DoxyCode}
+511 \{
+512     \textcolor{keyword}{const} \textcolor{keywordtype}{char}* chFileName = sFileName.c\_str();
+513     \textcolor{comment}{// get datum from chFileName}
+514     std::fstream infile(chFileName);
+515     \textcolor{comment}{// chFileName can not be opened}
+516     \textcolor{keywordflow}{if} (!infile)
+517     \{
+518         \textcolor{keywordflow}{throw} \hyperlink{classException}{Exception}(2,
+519                 \textcolor{stringliteral}{"Open File "} + sFileName + \textcolor{stringliteral}{" by Server::getList() ERROR! "}
+520                         + getTime());
+521     \}
+522     std::vector<stListContainer> vList;
+523     \textcolor{comment}{// loop until the file pointer point to the end of file}
+524     \textcolor{keywordflow}{while} (!infile.eof())
+525     \{
+526         \textcolor{keywordtype}{char} cLine[500];
+527         infile.getline(cLine, 500);
+528         \textcolor{comment}{// the first char of line is '#' means that, this line is a commentary}
+529         \textcolor{keywordflow}{if} (cLine[0] != \textcolor{charliteral}{'#'})
+530         \{
+531             \hyperlink{structstListContainer}{stListContainer} \hyperlink{structstListContainer}{stListContainer};
+532             \textcolor{keyword}{const} \textcolor{keywordtype}{char} *cSeparator = \textcolor{stringliteral}{"   "};
+533             \textcolor{keywordtype}{char} *cBuffer;
+534             \textcolor{keywordtype}{int} iSeparator = 0;
+535             \textcolor{comment}{// use strtok function to separate the line}
+536             cBuffer = strtok(cLine, cSeparator);
+537             \textcolor{comment}{// iteration for separating of informations}
+538             \textcolor{keywordflow}{while} (cBuffer)
+539             \{
+540                 iSeparator++;
+541                 \textcolor{comment}{// the first rank is Remote Axxelbox IP address}
+542                 \textcolor{keywordflow}{if} (iSeparator == 1)
+543                 \{
+544                     stListContainer.\hyperlink{structstListContainer_a2d926770549c1af0e1282f20cdc241e5}{sRemoteABIP} = cBuffer;
+545                 \}
+546                 \textcolor{comment}{// the second rank is Remote Axxelbox Port}
+547                 \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (iSeparator == 2)
+548                 \{
+549                     stListContainer.\hyperlink{structstListContainer_ad2a9d2c715866e4fe3a2c588ab3105f0}{sRemoteABPort} = cBuffer;
+550                 \}
+551                 \textcolor{comment}{// the third rank is Remote Axxelbox extern IP address}
+552                 \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (iSeparator == 3)
+553                 \{
+554                     stListContainer.\hyperlink{structstListContainer_a661224bc268bac73ea4c4f179626f04b}{sRemoteABLocalIP} = cBuffer;
+555                 \}
+556                 \textcolor{comment}{// the fourth rank is Remote Axxelbox extern Port}
+557                 \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (iSeparator == 4)
+558                 \{
+559                     stListContainer.\hyperlink{structstListContainer_aeadf64994288c18847cb1b9fc244922f}{sRemoteABLocalPort} = cBuffer;
+560                 \}
+561                 \textcolor{comment}{// the fifth rank is Destination IP Address}
+562                 \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (iSeparator == 5)
+563                 \{
+564                     stListContainer.\hyperlink{structstListContainer_ab4fde5a0381565943612e2e672b02513}{sDesIP} = cBuffer;
+565                 \}
+566                 \textcolor{comment}{// the sixth rank is Destination Network Address}
+567                 \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (iSeparator == 6)
+568                 \{
+569                     stListContainer.\hyperlink{structstListContainer_ae886a76fb72d96cbc124544538905ef8}{sDesNWAdress} = cBuffer;
+570                 \}
+571                 \textcolor{comment}{// the seventh rank is Time}
+572                 \textcolor{keywordflow}{else}
+573                 \{
+574                     stListContainer.\hyperlink{structstListContainer_acec007ec5b8190c8bf0242980b0b7528}{sTime} = cBuffer;
+575                 \}
+576                 cBuffer = strtok(NULL, cSeparator);
+577             \}
+578             \textcolor{keywordflow}{if} (!(stListContainer.\hyperlink{structstListContainer_a2d926770549c1af0e1282f20cdc241e5}{sRemoteABIP} == \textcolor{stringliteral}{""}
+579                     && stListContainer.\hyperlink{structstListContainer_ad2a9d2c715866e4fe3a2c588ab3105f0}{sRemoteABPort} == \textcolor{stringliteral}{""}
+580                     && stListContainer.\hyperlink{structstListContainer_a661224bc268bac73ea4c4f179626f04b}{sRemoteABLocalIP} == \textcolor{stringliteral}{""}
+581                     && stListContainer.\hyperlink{structstListContainer_aeadf64994288c18847cb1b9fc244922f}{sRemoteABLocalPort} == \textcolor{stringliteral}{""}
+582                     && stListContainer.\hyperlink{structstListContainer_ab4fde5a0381565943612e2e672b02513}{sDesIP} == \textcolor{stringliteral}{""}
+583                     && stListContainer.\hyperlink{structstListContainer_ae886a76fb72d96cbc124544538905ef8}{sDesNWAdress} == \textcolor{stringliteral}{""}
+584                     && stListContainer.\hyperlink{structstListContainer_acec007ec5b8190c8bf0242980b0b7528}{sTime} == \textcolor{stringliteral}{""}))
+585             \{
+586                 vList.push\_back(stListContainer);
+587             \}
+588 
+589         \}
+590         \textcolor{keywordflow}{else}
+591         \{
+592 
+593         \}
+594     \}
+595     infile.close();
+596     \textcolor{keywordflow}{return} vList;
+597 \}
+\end{DoxyCode}
+\hypertarget{classServer_a00509bf6473b95160150d4e28b072968}{\index{Server@{Server}!start\-Server@{start\-Server}}
+\index{start\-Server@{start\-Server}!Server@{Server}}
+\subsubsection[{start\-Server}]{\setlength{\rightskip}{0pt plus 5cm}void Server\-::start\-Server (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}}\label{classServer_a00509bf6473b95160150d4e28b072968}
+
+
+start the server side in an alone thread 
+
+endless loop and never end 
+
+Definition at line 146 of file Server.\-cpp.
+
+
+\begin{DoxyCode}
+147 \{
+148     \textcolor{keywordflow}{try}
+149     \{
+150         \textcolor{keyword}{struct }soap soap;
+151 
+152         \textcolor{comment}{// open Recvlog.dat and save the logs in it}
+153         std::ofstream outfile(\textcolor{stringliteral}{"Recvlog.dat"}, std::ios::app);
+154         \textcolor{keywordflow}{if} (!outfile)
+155         \{
+156             \textcolor{keywordflow}{throw} \hyperlink{classException}{Exception}(2,
+157                     \textcolor{stringliteral}{"Open File 'Recvlog.dat' by Server Side startServer\_WITHIPV4() ERROR! "}
+158                             + getTime());
+159         \}
+160         \textcolor{comment}{// master socket and Slave socket}
+161         \textcolor{keywordtype}{int} iMasterSocket, iSlaveSocket;
+162 
+163         \textcolor{comment}{// initializes a stack-allocated gSOAP context}
+164         soap\_init(&soap);
+165 
+166         \textcolor{comment}{// returns master socket (backlog = max. queue size for requests).}
+167         \textcolor{comment}{// when host == NULL : host is the machine on which the service runs}
+168         iMasterSocket = soap\_bind(&soap, getIPAddress(sINTERFACE, 4).c\_str(),
+169                 iServerSidePortIPv4, 100);
+170 
+171         \textcolor{comment}{// fault to start the Server}
+172         \textcolor{keywordflow}{if} (iMasterSocket < 0)
+173         \{
+174             \textcolor{comment}{// show the fault information}
+175             soap\_print\_fault(&soap, stderr);
+176             \textcolor{keywordflow}{throw} \hyperlink{classException}{Exception}(-11,
+177                     \textcolor{stringliteral}{"Gsoap by Server Side IPV4 soap\_bind() ERROR! "}
+178                             + getTime());
+179         \}
+180 
+181         \textcolor{keywordflow}{else}
+182         \{
+183             \textcolor{comment}{// save the logs in Recvlog.dat}
+184             outfile << \textcolor{stringliteral}{"Socket connection successful: master socket = "}
+185                     << iMasterSocket << \textcolor{stringliteral}{" Time: "} << getTime() << std::endl;
+186             \textcolor{comment}{// when bShowInformation = true, show the running's informations}
+187             \textcolor{comment}{// when bShowInformation = false, show nothing}
+188             \textcolor{keywordflow}{if} (bShowInformation)
+189             \{
+190                 std::cout << \textcolor{stringliteral}{"Socket connection successful: master socket = "}
+191                         << iMasterSocket << \textcolor{stringliteral}{" Time: "} << getTime() << std::endl;
+192             \}
+193             \textcolor{keywordflow}{while} (1)
+194             \{
+195                 \textcolor{comment}{// returns slave socket}
+196                 iSlaveSocket = soap\_accept(&soap);
+197                 \textcolor{comment}{// fault to start the Client}
+198                 \textcolor{keywordflow}{if} (iSlaveSocket < 0)
+199                 \{
+200                     soap\_print\_fault(&soap, stderr);
+201                     \textcolor{keywordflow}{throw} \hyperlink{classException}{Exception}(-12,
+202                             \textcolor{stringliteral}{"Gsoap by Server Side IPV4 soap\_accept() ERROR! "}
+203                                     + getTime());
+204                     \textcolor{keywordflow}{break};
+205                 \}
+206                 \textcolor{comment}{// save the logs in Recvlog.dat}
+207                 outfile << \textcolor{stringliteral}{"Accepted connection from IP = "}
+208                         << ((soap.ip >> 24) & 0xFF) << \textcolor{stringliteral}{"."}
+209                         << ((soap.ip >> 16) & 0xFF) << \textcolor{stringliteral}{"."}
+210                         << ((soap.ip >> 8) & 0xFF) << \textcolor{stringliteral}{"."} << (soap.ip & 0xFF)
+211                         << \textcolor{stringliteral}{" port= "} << soap.port << \textcolor{stringliteral}{" socket= "} << iSlaveSocket
+212                         << \textcolor{stringliteral}{" Time: "} << getTime() << std::endl;
+213                 \textcolor{comment}{// when bShowInformation = true, show the running's informations}
+214                 \textcolor{comment}{// when bShowInformation = false, show nothing}
+215                 \textcolor{keywordflow}{if} (bShowInformation)
+216                 \{
+217                     fprintf(stderr,
+218                             \textcolor{stringliteral}{"Server: Accepted connection from IP=%ld.%ld.%ld.%ld port=%d socket=%d\(\backslash\)n"},
+219                             (soap.ip >> 24) & 0xFF, (soap.ip >> 16) & 0xFF,
+220                             (soap.ip >> 8) & 0xFF, soap.ip & 0xFF, soap.port,
+221                             iSlaveSocket);
+222                 \}
+223 
+224                 \textcolor{comment}{// process RPC request}
+225                 \textcolor{keywordflow}{if} (soap\_serve(&soap) != SOAP\_OK)
+226                 \{
+227                     \textcolor{comment}{// print error}
+228                     soap\_print\_fault(&soap, stderr);
+229                     \textcolor{keywordflow}{throw} \hyperlink{classException}{Exception}(-13,
+230                             \textcolor{stringliteral}{"Gsoap by Server Side IPV4 ERROR! SOAP\_OK not returned! "}
+231                                     + getTime());
+232                 \}
+233                 \textcolor{comment}{// clean up class instances}
+234                 soap\_destroy(&soap);
+235                 \textcolor{comment}{// clean up everything and close socket}
+236                 soap\_end(&soap);
+237             \}
+238         \}
+239         \textcolor{comment}{// close master socket and detach context}
+240         soap\_done(&soap);
+241     \} \textcolor{keywordflow}{catch} (\hyperlink{classException}{Exception} &\hyperlink{classException}{Exception})
+242     \{
+243         Exception.\hyperlink{classException_ac84241265b4b5c7a38be1d729d26aa28}{dispose}();
+244     \} \textcolor{keywordflow}{catch} (...)
+245     \{
+246         Exception Exception(-14,
+247                 \textcolor{stringliteral}{"Unexpected Error by Server Side IPV4 GSOAP "} + getTime());
+248         Exception.\hyperlink{classException_ac84241265b4b5c7a38be1d729d26aa28}{dispose}();
+249     \}
+250 \}
+\end{DoxyCode}
+\hypertarget{classServer_a660e72a3e489abde31f99691be7156f2}{\index{Server@{Server}!start\-Server\-\_\-\-W\-I\-T\-H\-I\-P\-V6@{start\-Server\-\_\-\-W\-I\-T\-H\-I\-P\-V6}}
+\index{start\-Server\-\_\-\-W\-I\-T\-H\-I\-P\-V6@{start\-Server\-\_\-\-W\-I\-T\-H\-I\-P\-V6}!Server@{Server}}
+\subsubsection[{start\-Server\-\_\-\-W\-I\-T\-H\-I\-P\-V6}]{\setlength{\rightskip}{0pt plus 5cm}void Server\-::start\-Server\-\_\-\-W\-I\-T\-H\-I\-P\-V6 (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}}\label{classServer_a660e72a3e489abde31f99691be7156f2}
+
+
+start the ipv6 server side in an alone thread 
+
+endless loop and never end 
+
+Definition at line 29 of file Server.\-cpp.
+
+
+\begin{DoxyCode}
+30 \{
+31     \textcolor{keywordflow}{try}
+32     \{
+33         \textcolor{keyword}{struct }soap soap\_ipv6;
+34 
+35         \textcolor{comment}{// open Recvlog.dat and save the logs in it}
+36         std::ofstream outfile(\textcolor{stringliteral}{"Recvlog.dat"}, std::ios::app);
+37         \textcolor{keywordflow}{if} (!outfile)
+38         \{
+39             \textcolor{keywordflow}{throw} \hyperlink{classException}{Exception}(2,
+40                     \textcolor{stringliteral}{"Open File 'Recvlog.dat' by Server Side startServer\_WITHIPV6() ERROR! "}
+41                             + getTime());
+42         \}
+43         \textcolor{comment}{// master socket and Slave socket}
+44         \textcolor{keywordtype}{int} iMasterSocket\_ipv6, iSlaveSocket\_ipv6;
+45         \textcolor{comment}{// initializes a stack-allocated gSOAP context}
+46         soap\_init(&soap\_ipv6);
+47 
+48         \textcolor{comment}{// returns master socket (backlog = max. queue size for requests).}
+49         \textcolor{comment}{// when host == NULL : host is the machine on which the service runs}
+50         iMasterSocket\_ipv6 = soap\_bind(&soap\_ipv6,
+51                 getIPAddress(sINTERFACE, 6).c\_str(), iServerSidePortIPv6, 100);
+52 
+53         \textcolor{comment}{// fault to start the Server\_ipv6}
+54         \textcolor{keywordflow}{if} (iMasterSocket\_ipv6 < 0)
+55         \{
+56             \textcolor{comment}{// show the fault information}
+57             soap\_print\_fault(&soap\_ipv6, stderr);
+58             \textcolor{keywordflow}{throw} \hyperlink{classException}{Exception}(-11,
+59                     \textcolor{stringliteral}{"Gsoap by Server Side IPV6 soap\_bind() ERROR! "}
+60                             + getTime());
+61         \}
+62         \textcolor{keywordflow}{else}
+63         \{
+64             \textcolor{comment}{// save the logs in Recvlog.dat}
+65             outfile << \textcolor{stringliteral}{"Socket connection successful: master socket = "}
+66                     << iMasterSocket\_ipv6 << \textcolor{stringliteral}{" Time: "} << getTime()
+67                     << std::endl;
+68             \textcolor{comment}{// when bShowInformation = true, show the running's informations}
+69             \textcolor{comment}{// when bShowInformation = false, show nothing}
+70             \textcolor{keywordflow}{if} (bShowInformation)
+71             \{
+72                 std::cout << \textcolor{stringliteral}{"Socket connection successful: master socket = "}
+73                         << iMasterSocket\_ipv6 << \textcolor{stringliteral}{" Time: "} << getTime()
+74                         << std::endl;
+75             \}
+76             \textcolor{keywordflow}{while} (1)
+77             \{
+78                 \textcolor{comment}{// returns slave socket}
+79                 iSlaveSocket\_ipv6 = soap\_accept(&soap\_ipv6);
+80 
+81                 \textcolor{comment}{// fault to start the Client}
+82                 \textcolor{keywordflow}{if} (iSlaveSocket\_ipv6 < 0)
+83                 \{
+84                     soap\_print\_fault(&soap\_ipv6, stderr);
+85                     \textcolor{keywordflow}{throw} \hyperlink{classException}{Exception}(-12,
+86                             \textcolor{stringliteral}{"Gsoap by Server Side IPV6 soap\_accept() ERROR! "}
+87                                     + getTime());
+88                     \textcolor{keywordflow}{break};
+89                 \}
+90 
+91                 \textcolor{comment}{// save the logs in Recvlog.dat}
+92                 \textcolor{keywordtype}{char} cIPAddress[50];
+93 
+94                 \textcolor{keyword}{struct }sockaddr\_in6 *sockaddr\_in6 =
+95                         (\textcolor{keyword}{struct }sockaddr\_in6 *) &soap\_ipv6.peer;
+96                 \textcolor{keywordtype}{int} iPort = ntohs(sockaddr\_in6->sin6\_port);
+97                 inet\_ntop(AF\_INET6, &sockaddr\_in6->sin6\_addr, cIPAddress,
+98                         \textcolor{keyword}{sizeof}(cIPAddress));
+99 
+100                 outfile << \textcolor{stringliteral}{"Accepted connection from IP = "} << cIPAddress
+101                         << \textcolor{stringliteral}{" port= "} << iPort << \textcolor{stringliteral}{" socket= "}
+102                         << iSlaveSocket\_ipv6 << \textcolor{stringliteral}{" Time: "} << getTime()
+103                         << std::endl;
+104                 \textcolor{comment}{// when bShowInformation = true, show the running's informations}
+105                 \textcolor{comment}{// when bShowInformation = false, show nothing}
+106                 \textcolor{keywordflow}{if} (bShowInformation)
+107                 \{
+108                     std::cout << \textcolor{stringliteral}{"Accepted connection from IP = "} << cIPAddress
+109                             << \textcolor{stringliteral}{" port= "} << iPort << \textcolor{stringliteral}{" socket= "}
+110                             << iSlaveSocket\_ipv6 << \textcolor{stringliteral}{" Time: "} << getTime()
+111                             << std::endl;
+112                 \}
+113 
+114                 \textcolor{comment}{// process RPC request}
+115                 \textcolor{keywordflow}{if} (soap\_serve(&soap\_ipv6) != SOAP\_OK)
+116                 \{
+117                     \textcolor{comment}{// print error}
+118                     soap\_print\_fault(&soap\_ipv6, stderr);
+119                     \textcolor{keywordflow}{throw} \hyperlink{classException}{Exception}(-13,
+120                             \textcolor{stringliteral}{"Gsoap by Server Side IPV6 ERROR! SOAP\_OK not returned! "}
+121                                     + getTime());
+122                 \}
+123                 \textcolor{comment}{// clean up class instances}
+124                 soap\_destroy(&soap\_ipv6);
+125                 \textcolor{comment}{// clean up everything and close socket}
+126                 soap\_end(&soap\_ipv6);
+127             \}
+128         \}
+129         \textcolor{comment}{// close master socket and detach context}
+130         soap\_done(&soap\_ipv6);
+131     \} \textcolor{keywordflow}{catch} (\hyperlink{classException}{Exception} &\hyperlink{classException}{Exception})
+132     \{
+133         Exception.\hyperlink{classException_ac84241265b4b5c7a38be1d729d26aa28}{dispose}();
+134     \} \textcolor{keywordflow}{catch} (...)
+135     \{
+136         Exception Exception(-14,
+137                 \textcolor{stringliteral}{"Unexpected Error by Server Side IPV6 GSOAP "} + getTime());
+138         Exception.\hyperlink{classException_ac84241265b4b5c7a38be1d729d26aa28}{dispose}();
+139     \}
+140 \}
+\end{DoxyCode}
+\hypertarget{classServer_a11f06bf832df7df4c73e4c8d8088bc40}{\index{Server@{Server}!write\-List@{write\-List}}
+\index{write\-List@{write\-List}!Server@{Server}}
+\subsubsection[{write\-List}]{\setlength{\rightskip}{0pt plus 5cm}void Server\-::write\-List (
+\begin{DoxyParamCaption}
+\item[{std\-::string}]{s\-I\-P}
+\end{DoxyParamCaption}
+)}}\label{classServer_a11f06bf832df7df4c73e4c8d8088bc40}
+
+
+save the compared List in List.\-dat 
+
+
+\begin{DoxyParams}{Parameters}
+{\em s\-I\-P} & \mbox{[}client side's I\-P address\mbox{]} \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 409 of file Server.\-cpp.
+
+
+\begin{DoxyCode}
+410 \{
+411     \hyperlink{classServer_a10cfd4823ae5286931cbaaf487bd5739}{compareList}(\hyperlink{classServer_a36e2161377e0960cbafa5bef009c57de}{getList}(\textcolor{stringliteral}{"Temp"}), \hyperlink{classServer_a36e2161377e0960cbafa5bef009c57de}{getList}(\textcolor{stringliteral}{"List.dat"}), sIP);
+412     std::ofstream outfile(\textcolor{stringliteral}{"List.dat"}, std::ios::app);
+413     \textcolor{keywordflow}{if} (!outfile)
+414     \{
+415         \textcolor{keywordflow}{throw} \hyperlink{classException}{Exception}(2,
+416                 \textcolor{stringliteral}{"Open File 'List.dat' by Server::writeList() ERROR! "}
+417                         + getTime());
+418     \}
+419     outfile.setf(std::ios::left);
+420     \textcolor{keywordflow}{for} (\textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} i = 0; i < vDiffList.size(); i++)
+421     \{
+422         outfile << std::setw(30) << vDiffList.at(i).sRemoteABIP << std::setw(25)
+423                 << vDiffList.at(i).sRemoteABPort << std::setw(30)
+424                 << vDiffList.at(i).sRemoteABLocalIP << std::setw(30)
+425                 << vDiffList.at(i).sRemoteABLocalPort << std::setw(30)
+426                 << vDiffList.at(i).sDesIP << std::setw(30)
+427                 << vDiffList.at(i).sDesNWAdress << std::setw(20)
+428                 << vDiffList.at(i).sTime << std::endl;
+429     \}
+430     outfile.close();
+431     vDiffList.clear();
+432 \}
+\end{DoxyCode}
+
+
+The documentation for this class was generated from the following files\-:\begin{DoxyCompactItemize}
+\item 
+/home/abysmli/workspace/\-A\-D\-P/app/src/axxel\-\_\-discovery\-\_\-protokoll.\-h\item 
+/home/abysmli/workspace/\-A\-D\-P/app/src/Server.\-cpp\end{DoxyCompactItemize}

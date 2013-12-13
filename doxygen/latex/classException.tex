@@ -1,0 +1,131 @@
+\hypertarget{classException}{\section{Exception Class Reference}
+\label{classException}\index{Exception@{Exception}}
+}
+
+
+\hyperlink{classException}{Exception} system for Axxel Discovery Protocol.  
+
+
+
+
+{\ttfamily \#include $<$axxel\-\_\-discovery\-\_\-protokoll.\-h$>$}
+
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{classException_a1c33295469cb3fc56750d610e4ff80f6}{Exception} (int, std\-::string)
+\item 
+void \hyperlink{classException_a28fc73b897a12d07901c637ff38eef5b}{save\-In\-Log} ()
+\item 
+void \hyperlink{classException_ac84241265b4b5c7a38be1d729d26aa28}{dispose} ()
+\begin{DoxyCompactList}\small\item\em dispose errors \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+\hyperlink{classException}{Exception} system for Axxel Discovery Protocol. 
+
+Show the Fault Message and save them in Syslog 
+
+Definition at line 77 of file axxel\-\_\-discovery\-\_\-protokoll.\-h.
+
+
+
+\subsection{Constructor \& Destructor Documentation}
+\hypertarget{classException_a1c33295469cb3fc56750d610e4ff80f6}{\index{Exception@{Exception}!Exception@{Exception}}
+\index{Exception@{Exception}!Exception@{Exception}}
+\subsubsection[{Exception}]{\setlength{\rightskip}{0pt plus 5cm}Exception\-::\-Exception (
+\begin{DoxyParamCaption}
+\item[{int}]{i\-Fault\-Code, }
+\item[{std\-::string}]{s\-Fault\-Message}
+\end{DoxyParamCaption}
+)}}\label{classException_a1c33295469cb3fc56750d610e4ff80f6}
+\hyperlink{Exception_8cpp_source}{Exception.\-cpp} Project\-: Axxel Discovery Protocol Created on\-: 2012-\/8-\/4 Author\-: Li, Yuan
+
+\hyperlink{classException}{Exception} system for Axxel Discovery Protocol Show the Fault Messages and save them in Syslog Constructor 
+
+Definition at line 17 of file Exception.\-cpp.
+
+
+\begin{DoxyCode}
+18 \{
+19     this->iFaultCode = iFaultCode;
+20     this->sFaultMessage = sFaultMessage;
+21 \}
+\end{DoxyCode}
+
+
+\subsection{Member Function Documentation}
+\hypertarget{classException_ac84241265b4b5c7a38be1d729d26aa28}{\index{Exception@{Exception}!dispose@{dispose}}
+\index{dispose@{dispose}!Exception@{Exception}}
+\subsubsection[{dispose}]{\setlength{\rightskip}{0pt plus 5cm}void Exception\-::dispose (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{classException_ac84241265b4b5c7a38be1d729d26aa28}
+
+
+dispose errors 
+
+i\-Fault\-Code = -\/1\# \-: gsoap errors
+
+i\-Fault\-Code = 1 \-: daemon errors
+
+i\-Fault\-Code = 2 \-: open files errors
+
+i\-Fault\-Code = 3 \-: get time errors
+
+i\-Fault\-Code = 4 \-: get ip address errors
+
+i\-Fault\-Code = 5 \-: get default interface errors
+
+i\-Fault\-Code = 6 \-: get host name or domain name errors
+
+i\-Fault\-Code = 7 \-: iterator errors
+
+i\-Fault\-Code = 8 \-: records warnings
+
+i\-Fault\-Code = 9 \-: unexpected errors 
+
+Definition at line 46 of file Exception.\-cpp.
+
+
+\begin{DoxyCode}
+47 \{
+48     \hyperlink{classException_a28fc73b897a12d07901c637ff38eef5b}{saveInLog}();
+49     \textcolor{keywordflow}{if} (iFaultCode == -11 || iFaultCode == -12 || iFaultCode == -13
+50             || iFaultCode == -14 || iFaultCode == 1 || iFaultCode == 2
+51             || iFaultCode == 5 || iFaultCode == 7 || iFaultCode == 4)
+52     \{
+53         exit(iFaultCode);
+54     \}
+55     \textcolor{keywordflow}{else}
+56     \{
+57 
+58     \}
+59 \}
+\end{DoxyCode}
+\hypertarget{classException_a28fc73b897a12d07901c637ff38eef5b}{\index{Exception@{Exception}!save\-In\-Log@{save\-In\-Log}}
+\index{save\-In\-Log@{save\-In\-Log}!Exception@{Exception}}
+\subsubsection[{save\-In\-Log}]{\setlength{\rightskip}{0pt plus 5cm}void Exception\-::save\-In\-Log (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{classException_a28fc73b897a12d07901c637ff38eef5b}
+save faultmessages in Log file 
+
+Definition at line 26 of file Exception.\-cpp.
+
+
+\begin{DoxyCode}
+27 \{
+28     std::ofstream outfile(\textcolor{stringliteral}{"Log"}, std::ios::app);
+29     outfile << sFaultMessage << std::endl;
+30     outfile.close();
+31 \}
+\end{DoxyCode}
+
+
+The documentation for this class was generated from the following files\-:\begin{DoxyCompactItemize}
+\item 
+/home/abysmli/workspace/\-A\-D\-P/app/src/axxel\-\_\-discovery\-\_\-protokoll.\-h\item 
+/home/abysmli/workspace/\-A\-D\-P/app/src/Exception.\-cpp\end{DoxyCompactItemize}
